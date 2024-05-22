@@ -4,13 +4,15 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import Root from "./routes/Root";
 import Error from "./routes/Error";
-import Home from "./components/Home";
-import SecondPage from "./components/SecondPage";
+import Home from "./routes/Home";
+import MovieDetails from "./routes/MovieDetails";
+import Player from "./routes/Player";
 
 const router = createBrowserRouter([
   { path: "/", element: <Root />, errorElement: <Error />, children: [
     {path: "/", element: <Home />},
-    {path: "/secondpage", element: <SecondPage />},
+    {path: "/details", element: <MovieDetails />},
+    {path: "/details/:id", element: <Player />},
   ] },
 ]);
 
