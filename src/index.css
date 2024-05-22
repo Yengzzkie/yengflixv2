@@ -23,6 +23,10 @@ a {
   z-index: 1;
 }
 
+.backdrop-image {
+  width: 100%;
+}
+
 .toplist-number {
   color: #242424;
   font-size: 380px;
@@ -35,12 +39,12 @@ a {
 
 @media screen and (max-width: 1024px) {
   .toplist-number {
-    font-size: 230px;
+    font-size: 150px;
     letter-spacing: -35px;
   }
 
   .movie-image {
-    left: 40%;
-    width: 150px;
+    left: 43%;
+    width: 100px;
   }
 }

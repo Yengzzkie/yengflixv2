@@ -13,10 +13,13 @@ export default function Home() {
   const MovieCarousel = styled.div`
     position: relative;
     width: 100%;
-    height: 500px;
+    height: 450px;
     padding: 0 2.5rem 0 5rem;
-    margin-left: 1rem;
     overflow: hidden;
+
+    @media screen and (max-width: 1024px) {
+      height: 220px;
+    }
   `;
 
   const CarouselContainer = styled.ul`
@@ -40,10 +43,15 @@ export default function Home() {
     position: relative;
     scroll-snap-align: start;
     flex: 0 0 auto;
-    width: 250px;
-    margin-right: 150px;
+    width: 180px;
+    margin-right: 135px;
+
+    &:hover .description {
+      display: block;
+    }
 
     @media screen and (max-width: 1024px) {
+      width: 145px;
       margin-right: 20px;
     }
   `;
@@ -64,6 +72,38 @@ export default function Home() {
       background-color: rgba(0, 0, 0, 0.7);
     }
   `;
+  
+  const Description = styled.div`
+    display: none;
+    width: 300px;
+    height: 350px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    z-index: 2;
+    overflow: auto;
+    animation: popUp .3s linear forwards;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    & p {
+      margin: 1rem;
+    }
+
+    @keyframes popUp {
+      from {
+        transform: scale(0)
+      }
+      to {
+        transform: scale(1)
+      }
+    }
+  `;
 
   const ScrollLeftButton = styled(ScrollButton)`
     left: 10px;
@@ -82,7 +122,7 @@ export default function Home() {
   }
 
   function scrollRight(ref) {
-    ref.current.scrollBy({ left: 300, behavior: "auto" });
+    ref.current.scrollBy({ left: 300, behavior: "smooth" });
   }
 
   return (
@@ -100,6 +140,10 @@ export default function Home() {
                   src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
                   alt={movie.title}
                 />
+                <Description className="description">
+                  <img className="backdrop-image" src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`} alt="" />
+                  <p>{movie.overview}</p>
+                </Description>
               </MovieItem>
             ))}
         </CarouselContainer>
@@ -119,6 +163,10 @@ export default function Home() {
                   src={`https://image.tmdb.org/t/p/w500/${tv.poster_path}`}
                   alt={tv.name}
                 />
+                <Description className="description">
+                  <img className="backdrop-image" src={`https://image.tmdb.org/t/p/original/${tv.backdrop_path}`} alt="" />
+                  <p>{tv.overview}</p>
+                </Description>
               </MovieItem>
             ))}
         </CarouselContainer>

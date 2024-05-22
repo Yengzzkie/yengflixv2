@@ -35,6 +35,7 @@ export default function Root() {
         const result = await response.json();
         const modResult = await result.results;
         const newMovieArray = modResult.map(movies => ({...movies, type: "movie"}))
+        console.log(newMovieArray)
         setData(newMovieArray);
       } catch (error) {
         setError(error.message);
@@ -58,7 +59,6 @@ export default function Root() {
         }
         const result = await response.json();
         const newTVArray = result.results
-        console.log(tvData)
         setTvData(newTVArray);
       } catch (error) {
         setError(error.message);
