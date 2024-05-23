@@ -11,8 +11,8 @@ import Player from "./routes/Player";
 const router = createBrowserRouter([
   { path: "/", element: <Root />, errorElement: <Error />, children: [
     {path: "/", element: <Home />},
-    {path: "/details", element: <MovieDetails />},
-    {path: "/details/:id", element: <Player />},
+    {path: "/details/:movieId", element: <MovieDetails />},
+    {path: "/details/:id/player", element: <Player />},
   ] },
 ]);
 

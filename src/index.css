@@ -7,12 +7,25 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #141414;
 }
 
 a {
   color: #fff;
   text-decoration: none;
+}
+
+li {
+  margin-right: 25px;
+}
+
+.logo {
+  color: red;
+  margin: 20px;
+}
+
+main {
+  padding: 1.5rem;
 }
 
 .movie-image {
@@ -29,7 +42,7 @@ a {
 
 .toplist-number {
   color: #242424;
-  font-size: 380px;
+  font-size: 270px;
   letter-spacing: -65px;
   text-shadow: -1px -1px 5px #ededed, 1px -1px 5px #ededed, -1px 1px 5px #ededed,
     1px 1px 5px #ededed;
@@ -38,6 +51,10 @@ a {
 
 
 @media screen and (max-width: 1024px) {
+  main {
+    padding: .5rem;
+  }
+
   .toplist-number {
     font-size: 150px;
     letter-spacing: -35px;

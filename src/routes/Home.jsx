@@ -1,5 +1,9 @@
 import { useContext, useRef } from "react";
 import { PageContext, TvDataContext, MovieDataContext } from "../routes/Root";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Button from "../styles/Button";
 import styled from "styled-components";
 
@@ -53,6 +57,10 @@ export default function Home() {
     @media screen and (max-width: 1024px) {
       width: 145px;
       margin-right: 20px;
+      
+      &:hover .description {
+        display: none;
+      }
     }
   `;
 
@@ -75,13 +83,13 @@ export default function Home() {
   
   const Description = styled.div`
     display: none;
-    width: 300px;
-    height: 350px;
+    width: 350px;
+    height: 450px;
     position: absolute;
-    top: 0;
-    left: 50%;
+    top: -25%;
+    left: 0;
     transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.9);
     color: white;
     z-index: 2;
     overflow: auto;
@@ -105,6 +113,14 @@ export default function Home() {
     }
   `;
 
+  const RoundButton = styled(Button)`
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    padding: .5rem;
+    margin: 5px;
+  `
+
   const ScrollLeftButton = styled(ScrollButton)`
     left: 10px;
   `;
@@ -126,31 +142,35 @@ export default function Home() {
   }
 
   return (
-    <>
-      <h1>Top 10 Movies</h1>
+    <main>
+      <h2>Top 10 Movies</h2>
       <MovieCarousel>
         <ScrollLeftButton onClick={() => scrollLeft(movieCarouselRef)}>‹</ScrollLeftButton>
         <CarouselContainer ref={movieCarouselRef}>
           {data &&
             data.slice(0, 10).map((movie, index) => (
               <MovieItem key={movie.id}>
-                <span className="toplist-number">{index + 1}</span>
-                <img
-                  className="movie-image"
-                  src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-                  alt={movie.title}
-                />
-                <Description className="description">
-                  <img className="backdrop-image" src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`} alt="" />
-                  <p>{movie.overview}</p>
-                </Description>
+                  <span className="toplist-number">{index + 1}</span>
+                  <img
+                    className="movie-image"
+                    src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                    alt={movie.title}
+                  />
+                  <Description className="description">
+                    <img className="backdrop-image" src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`} alt="" />
+                    <p>{movie.overview}</p>
+                  <Link to={`/details/${movie.id}`}>
+                    <RoundButton><FontAwesomeIcon icon={faPlay}/></RoundButton>
+                  </Link>
+                    <RoundButton><FontAwesomeIcon icon={faPlus}/></RoundButton>
+                  </Description>
               </MovieItem>
             ))}
         </CarouselContainer>
         <ScrollRightButton onClick={() => scrollRight(movieCarouselRef)}>›</ScrollRightButton>
       </MovieCarousel>
       
-      <h1>Top 10 TV Series</h1>
+      <h2>Top 10 TV Series</h2>
       <MovieCarousel>
         <ScrollLeftButton onClick={() => scrollLeft(tvCarouselRef)}>‹</ScrollLeftButton>
         <CarouselContainer ref={tvCarouselRef}>
@@ -174,6 +194,6 @@ export default function Home() {
       </MovieCarousel>
 
       <Button onClick={incrementPage}>Next</Button>
-    </>
+    </main>
   );
 }
