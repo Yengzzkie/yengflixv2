@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import Nav from "../styles/Nav";
-import LinkList from "../styles/LinkList";
+import Nav from "./Nav";
+import LinkList from "./LinkList";
 
 export default function Navigation() {
 
@@ -17,6 +17,9 @@ export default function Navigation() {
         </li>
         <li>
           <Link to="/details/tv">TV Shows</Link>
+        </li>
+        <li>
+          <Link to="/mylist">My List</Link>
         </li>
       </LinkList>
     </Nav>

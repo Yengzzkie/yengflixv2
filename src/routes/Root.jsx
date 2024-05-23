@@ -5,10 +5,12 @@ import { useState, useEffect, createContext } from "react";
 export const MovieDataContext = createContext();
 export const PageContext = createContext();
 export const TvDataContext = createContext();
+export const MyListContext = createContext();
 
 export default function Root() {
   const [data, setData] = useState(null);
   const [tvData, setTvData] = useState(null);
+  const [myList, setMyList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -23,10 +25,17 @@ export default function Root() {
   };
 
   useEffect(() => {
+    const storedList = localStorage.getItem('myList');
+    if (storedList) {
+      setMyList(JSON.parse(storedList));
+    }
+  }, [setMyList]);
+
+  useEffect(() => {
     const fetchMovies = async () => {
       try {
         const response = await fetch(
-          `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${currentPage}`,
+          `https://api.themoviedb.org/3/trending/movie/day`,
           options
         );
         if (!response.ok) {
@@ -51,7 +60,7 @@ export default function Root() {
     const fetchTvShows = async () => {
       try {
         const response = await fetch(
-          `https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=1`,
+          `https://api.themoviedb.org/3/trending/tv/day`,
           options
         );
         if (!response.ok) {
@@ -79,8 +88,10 @@ export default function Root() {
       <PageContext.Provider value={{ currentPage, setCurrentPage }}>
         <TvDataContext.Provider value={{ tvData, setTvData }}>
         <MovieDataContext.Provider value={{ data, setData }}>
+        <MyListContext.Provider value={{ myList, setMyList }}>
           <Navigation />
           <Outlet />
+        </MyListContext.Provider>
         </MovieDataContext.Provider>
         </TvDataContext.Provider>
       </PageContext.Provider>

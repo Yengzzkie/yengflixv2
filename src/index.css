@@ -49,7 +49,6 @@ main {
   z-index: -1;
 }
 
-
 @media screen and (max-width: 1024px) {
   main {
     padding: .5rem;

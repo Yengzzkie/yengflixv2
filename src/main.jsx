@@ -5,14 +5,14 @@ import "./index.css";
 import Root from "./routes/Root";
 import Error from "./routes/Error";
 import Home from "./routes/Home";
-import MovieDetails from "./routes/MovieDetails";
-import Player from "./routes/Player";
+import MoviePlayer from "./routes/MoviePlayer";
+import MyList from "./routes/MyList";
 
 const router = createBrowserRouter([
   { path: "/", element: <Root />, errorElement: <Error />, children: [
     {path: "/", element: <Home />},
-    {path: "/details/:movieId", element: <MovieDetails />},
-    {path: "/details/:id/player", element: <Player />},
+    {path: "/details/:movieId", element: <MoviePlayer />},
+    {path: "/mylist", element: <MyList />},
   ] },
 ]);
 
