@@ -6,6 +6,7 @@ export const MovieDataContext = createContext();
 export const PageContext = createContext();
 export const TvDataContext = createContext();
 export const MyListContext = createContext();
+export const AddedToListContext = createContext();
 
 export default function Root() {
   const [data, setData] = useState(null);
@@ -14,6 +15,7 @@ export default function Root() {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [added, setAdded] = useState(false);
 
   const options = {
     method: "GET",
@@ -30,6 +32,7 @@ export default function Root() {
       setMyList(JSON.parse(storedList));
     }
   }, [setMyList]);
+  console.log(myList)
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -89,8 +92,10 @@ export default function Root() {
         <TvDataContext.Provider value={{ tvData, setTvData }}>
         <MovieDataContext.Provider value={{ data, setData }}>
         <MyListContext.Provider value={{ myList, setMyList }}>
+        <AddedToListContext.Provider value={{ added, setAdded }}>
           <Navigation />
           <Outlet />
+        </AddedToListContext.Provider>
         </MyListContext.Provider>
         </MovieDataContext.Provider>
         </TvDataContext.Provider>

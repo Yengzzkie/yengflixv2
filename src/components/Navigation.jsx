@@ -12,12 +12,12 @@ export default function Navigation() {
         <li>
           <Link to="/">Home</Link>
         </li>
-        <li>
+        {/* <li>
           <Link to="/details/movies">Movies</Link>
-        </li>
-        <li>
+        </li> */}
+        {/* <li>
           <Link to="/details/tv">TV Shows</Link>
-        </li>
+        </li> */}
         <li>
           <Link to="/mylist">My List</Link>
         </li>

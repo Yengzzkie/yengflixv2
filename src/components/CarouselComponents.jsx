@@ -47,7 +47,7 @@ const MovieItem = styled.li`
       margin-right: 20px;
       
       &:hover .description {
-        display: none;
+        display: block;
       }
     }
 `;

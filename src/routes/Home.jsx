@@ -1,14 +1,12 @@
 import { useContext, useRef, useEffect } from "react";
-import { PageContext, TvDataContext, MovieDataContext, MyListContext } from "../routes/Root";
+import { PageContext, TvDataContext, MovieDataContext, MyListContext, AddedToListContext } from "../routes/Root";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faPlay, faPlus } from "@fortawesome/free-solid-svg-icons";
 import Button from "../components/Button";
 import styled from "styled-components";
 import { MovieCarousel, CarouselContainer, MovieItem, ScrollButton, RoundButton } from "../components/CarouselComponents";
 import DescriptionPopup from "../components/DescriptionPopup";
-
-
 
 const ScrollLeftButton = styled(ScrollButton)`
     left: 10px;
@@ -23,6 +21,7 @@ export default function Home() {
   const { tvData } = useContext(TvDataContext);
   const { myList, setMyList } = useContext(MyListContext);
   const { setCurrentPage } = useContext(PageContext);
+  const { added, setAdded } = useContext(AddedToListContext)
   const movieCarouselRef = useRef(null);
   const tvCarouselRef = useRef(null);
 
@@ -53,7 +52,13 @@ export default function Home() {
     });
   }
 
-  
+  const handleClick = (movie) => {
+    handleAddToList(movie);
+    setAdded(true);
+    setTimeout(() => {
+      setAdded(false);
+    }, 2000);
+  };
 
   function scrollLeft(ref) {
     ref.current.scrollBy({ left: -300, behavior: "smooth" });
@@ -83,7 +88,7 @@ export default function Home() {
                 <Link to={`/details/${movie.id}`}>
                   <RoundButton><FontAwesomeIcon icon={faPlay} /></RoundButton>
                 </Link>
-                <RoundButton onClick={() => handleAddToList(movie)}><FontAwesomeIcon icon={faPlus} /></RoundButton>
+                <RoundButton onClick={() => handleClick(movie)}>{added ? <FontAwesomeIcon icon={faCheck} /> : <FontAwesomeIcon icon={faPlus} />}</RoundButton>
                 <h3>{movie.title}</h3>
                 <p>{movie.overview}</p>
               </DescriptionPopup>
@@ -111,7 +116,7 @@ export default function Home() {
                 <Link to={`/details/${tv.id}`}>
                   <RoundButton><FontAwesomeIcon icon={faPlay} /></RoundButton>
                 </Link>
-                <RoundButton onClick={() => handleAddToList(tv)}><FontAwesomeIcon icon={faPlus} /></RoundButton>
+                <RoundButton onClick={() => handleClick(tv)}>{added ? <FontAwesomeIcon icon={faCheck} /> : <FontAwesomeIcon icon={faPlus} />}</RoundButton>
                 <p>{tv.overview}</p>
               </DescriptionPopup>
             </MovieItem>
@@ -119,29 +124,6 @@ export default function Home() {
         </CarouselContainer>
         <ScrollRightButton onClick={() => scrollRight(tvCarouselRef)}>›</ScrollRightButton>
       </MovieCarousel>
-
-      {/* MY LIST SECTION */}
-      {/* <h2>My List</h2>
-      <MovieCarousel>
-        <ScrollLeftButton onClick={() => scrollLeft(myListRef)}>‹</ScrollLeftButton>
-        <CarouselContainer ref={myListRef}>
-          {myList && myList.map((list) => (
-            <MovieItem key={list.id}>
-              <img
-                className="movie-image"
-                src={`https://image.tmdb.org/t/p/w500/${list.poster_path}`}
-                alt={list.name || list.title}
-              />
-              <DescriptionPopup className="description">
-                <img className="backdrop-image" src={`https://image.tmdb.org/t/p/original/${list.backdrop_path}`} alt="" />
-                <RoundButton onClick={() => handleRemoveFromList(list.id)}><FontAwesomeIcon icon={faMinus} /></RoundButton>
-                <p>{list.overview}</p>
-              </DescriptionPopup>
-            </MovieItem>
-          ))}
-        </CarouselContainer>
-        <ScrollRightButton onClick={() => scrollRight(myListRef)}>›</ScrollRightButton>
-      </MovieCarousel> */}
 
       <Button onClick={incrementPage}>Next</Button>
     </main>

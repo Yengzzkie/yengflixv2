@@ -10,6 +10,10 @@
   background-color: #141414;
 }
 
+body {
+  height: 100%;
+}
+
 a {
   color: #fff;
   text-decoration: none;
@@ -47,6 +51,10 @@ main {
   text-shadow: -1px -1px 5px #ededed, 1px -1px 5px #ededed, -1px 1px 5px #ededed,
     1px 1px 5px #ededed;
   z-index: -1;
+}
+
+.my-list {
+  padding: 1rem;
 }
 
 @media screen and (max-width: 1024px) {
