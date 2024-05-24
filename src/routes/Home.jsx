@@ -1,4 +1,4 @@
-import { useContext, useRef, useEffect } from "react";
+import { useContext, useRef } from "react";
 import { PageContext, TvDataContext, MovieDataContext, MyListContext, AddedToListContext } from "../routes/Root";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,24 +19,13 @@ const ScrollRightButton = styled(ScrollButton)`
 export default function Home() {
   const { data } = useContext(MovieDataContext);
   const { tvData } = useContext(TvDataContext);
-  const { myList, setMyList } = useContext(MyListContext);
+  const { setMyList } = useContext(MyListContext);
   const { setCurrentPage } = useContext(PageContext);
   const { added, setAdded } = useContext(AddedToListContext)
   const movieCarouselRef = useRef(null);
   const tvCarouselRef = useRef(null);
 
-  useEffect(() => {
-    // Load myList from local storage on component mount
-    const storedList = localStorage.getItem('myList');
-    if (storedList) {
-      setMyList(JSON.parse(storedList));
-    }
-  }, [setMyList]);
-
-  useEffect(() => {
-    // Save myList to local storage whenever it changes
-    localStorage.setItem('myList', JSON.stringify(myList));
-  }, [myList]);
+  
 
   function incrementPage() {
     setCurrentPage((prevPage) => prevPage + 1);
@@ -117,6 +106,7 @@ export default function Home() {
                   <RoundButton><FontAwesomeIcon icon={faPlay} /></RoundButton>
                 </Link>
                 <RoundButton onClick={() => handleClick(tv)}>{added ? <FontAwesomeIcon icon={faCheck} /> : <FontAwesomeIcon icon={faPlus} />}</RoundButton>
+                <h3>{tv.name}</h3>
                 <p>{tv.overview}</p>
               </DescriptionPopup>
             </MovieItem>

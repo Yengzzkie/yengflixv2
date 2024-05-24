@@ -36,6 +36,7 @@ main {
   position: absolute;
   left: 65%;
   top: 0;
+  box-shadow: -5px 5px 5px #000000;
   width: 100%;
   z-index: 1;
 }
