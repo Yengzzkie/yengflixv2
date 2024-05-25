@@ -10,7 +10,17 @@ const Nav = styled.nav`
   width: 100vw;
   height: 60px;
   padding: 1rem;
-  z-index: 1000; /* Ensure it stays above other content */
+  z-index: 1000;
+
+  @media screen and (max-width: 1024px) {
+    backdrop-filter: blur(5px);
+    position: fixed;
+    flex-direction: column;
+    top: 0;
+    height: 100vh;
+    width: 55vw;
+    padding-top: 3rem;
+  }
 `;
 
 export default Nav;
