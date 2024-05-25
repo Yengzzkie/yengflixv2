@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
-import { AllMoviesContext, MovieDataContext, TvDataContext, MyListContext } from "./Root";
+import { AllMoviesContext, MovieDataContext, TvDataContext, MyListContext, AllTVContext } from "./Root";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { AddedToListContext } from "./Root";
@@ -33,7 +33,7 @@ const Player = styled.div`
 const MovieDetail = styled.div`
   position: relative;
   display: flex;
-  background: linear-gradient(to left, #141414f7, #1414149c, #1414147d, #1414143b, #14141400);
+  background: linear-gradient(to left, #141414c7, #141414ab, #14141461, #14141424, #14141400);
   width: 100%;
   height: auto;
   padding: 2rem 0;
@@ -93,16 +93,18 @@ const MovieDetail = styled.div`
 export default function MoviePlayer() {
   const { data } = useContext(MovieDataContext)
   const { movies } = useContext(AllMoviesContext);
-  const { tvData } = useContext(TvDataContext);
+  const { topTV } = useContext(TvDataContext);
+  const { tvSeries } = useContext(AllTVContext);
   const { setMyList } = useContext(MyListContext);
   const { added, setAdded } = useContext(AddedToListContext);
   const { movieId } = useParams();
 
   const viewingTopMovie = data.find(data => data.id === parseInt(movieId));
   const viewingMovie = movies.find(movie => movie.id === parseInt(movieId));
-  const viewingTv = tvData.find(tv => tv.id === parseInt(movieId));
+  const viewingTv = topTV.find(tv => tv.id === parseInt(movieId));
+  const viewingSeries = tvSeries.find(series => series.id === parseInt(movieId))
 
-  const viewingContent = viewingTopMovie || viewingMovie || viewingTv;
+  const viewingContent = viewingTopMovie || viewingMovie || viewingTv || viewingSeries;
 
   if (!viewingContent) {
     return <p>Content not found</p>;

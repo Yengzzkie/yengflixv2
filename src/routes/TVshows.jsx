@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
-import { MoviePageContext, MyListContext, AddedToListContext, AllMoviesContext } from "./Root";
+import { TvPageContext, MyListContext, AddedToListContext, AllTVContext } from "./Root";
 import { RoundButton } from "../components/CarouselComponents";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -30,17 +30,16 @@ const MovieList = styled.li`
     }
 `
 
-export default function Movies() {
-  
-  const { movies } = useContext(AllMoviesContext);
-  const { setMoviePage } = useContext(MoviePageContext);
+export default function TVshows() {
+  const { tvSeries } = useContext(AllTVContext);
+  const { setTvPage } = useContext(TvPageContext);
   const { setMyList } = useContext(MyListContext);
   const { added, setAdded } = useContext(AddedToListContext);
 
   const isMobile = useMediaQuery({ query: "(max-width: 1024px)" });
 
   function incrementPage() {
-    setMoviePage((prevPage) => prevPage + 1);
+    setTvPage((prevPage) => prevPage + 1);
   }
 
   function handleAddToList(newMovie) {
@@ -63,45 +62,45 @@ export default function Movies() {
 
   return (
     <Grid>
-      {movies &&
-        movies.map((movie) => (
-          <MovieList key={movie.id}>
+      {tvSeries &&
+        tvSeries.map((series) => (
+          <MovieList key={series.id}>
             {isMobile ? (
-              <Link to={`/details/${movie.id}`}>
+              <Link to={`/details/${series.id}`}>
                 <ImageCard
-                  src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-                  alt={movie.title}
+                  src={`https://image.tmdb.org/t/p/original/${series.poster_path}`}
+                  alt={series.title}
                 />
               </Link>
             ) : (
               <ImageCard
-                src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-                alt={movie.title}
+                src={`https://image.tmdb.org/t/p/original/${series.poster_path}`}
+                alt={series.title}
               />
             )}
             {!isMobile && (
               <DescriptionPopup className="description">
                 <img
                   className="backdrop-image"
-                  src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
+                  src={`https://image.tmdb.org/t/p/original/${series.backdrop_path}`}
                   alt=""
                 />
-                <Link to={`/details/${movie.id}`}>
+                <Link to={`/details/${series.id}`}>
                   <RoundButton>
                     <FontAwesomeIcon icon={faPlay} />
                   </RoundButton>
                 </Link>
-                <RoundButton onClick={() => handleClick(movie)}>
+                <RoundButton onClick={() => handleClick(series)}>
                   {added ? (
                     <FontAwesomeIcon icon={faCheck} />
                   ) : (
                     <FontAwesomeIcon icon={faPlus} />
                   )}
                 </RoundButton>
-                <VideoType>{movie.type}</VideoType>
-                <Title>{movie.title}</Title>
-                <p className="release-date">{movie.release_date}</p>
-                <p>{movie.overview}</p>
+                <VideoType>{series.type}</VideoType>
+                <Title>{series.title}</Title>
+                <p className="release-date">{series.first_air_date}</p>
+                <p>{series.overview}</p>
               </DescriptionPopup>
             )}
           </MovieList>

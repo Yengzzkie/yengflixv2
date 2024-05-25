@@ -15,9 +15,9 @@ export default function Navigation() {
         <li>
           <Link to="/movies">Movies</Link>
         </li>
-        {/* <li>
-          <Link to="/details/tv">TV Shows</Link>
-        </li> */}
+        <li>
+          <Link to="/tvshows">TV Shows</Link>
+        </li>
         <li>
           <Link to="/mylist">My List</Link>
         </li>

@@ -21,7 +21,7 @@ const ScrollRightButton = styled(ScrollButton)`
 
 export default function Home() {
   const { data } = useContext(MovieDataContext);
-  const { tvData } = useContext(TvDataContext);
+  const { topTV } = useContext(TvDataContext);
   const { setMyList } = useContext(MyListContext);
   const { added, setAdded } = useContext(AddedToListContext);
   const movieCarouselRef = useRef(null);
@@ -104,7 +104,7 @@ export default function Home() {
       <MovieCarousel>
         <ScrollLeftButton onClick={() => scrollLeft(tvCarouselRef)}>‹</ScrollLeftButton>
         <CarouselContainer ref={tvCarouselRef}>
-          {tvData && tvData.slice(0, 10).map((tv, index) => (
+          {topTV && topTV.slice(0, 10).map((tv, index) => (
             <MovieItem key={tv.id}>
               <span className="toplist-number">{index + 1}</span>
               {isMobile ? (
