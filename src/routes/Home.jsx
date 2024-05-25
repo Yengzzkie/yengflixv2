@@ -7,6 +7,7 @@ import Button from "../components/Button";
 import styled from "styled-components";
 import { MovieCarousel, CarouselContainer, MovieItem, ScrollButton, RoundButton } from "../components/CarouselComponents";
 import DescriptionPopup from "../components/DescriptionPopup";
+import { useMediaQuery } from 'react-responsive';
 
 const ScrollLeftButton = styled(ScrollButton)`
     left: 10px;
@@ -21,9 +22,11 @@ export default function Home() {
   const { tvData } = useContext(TvDataContext);
   const { setMyList } = useContext(MyListContext);
   const { setCurrentPage } = useContext(PageContext);
-  const { added, setAdded } = useContext(AddedToListContext)
+  const { added, setAdded } = useContext(AddedToListContext);
   const movieCarouselRef = useRef(null);
   const tvCarouselRef = useRef(null);
+
+  const isMobile = useMediaQuery({ query: '(max-width: 1024px)' });
 
   function incrementPage() {
     setCurrentPage((prevPage) => prevPage + 1);
@@ -65,21 +68,33 @@ export default function Home() {
           {data && data.slice(0, 10).map((movie, index) => (
             <MovieItem key={movie.id}>
               <span className="toplist-number">{index + 1}</span>
-              <img
-                className="movie-image"
-                src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-                alt={movie.title}
-              />
-              <DescriptionPopup className="description">
-                <img className="backdrop-image" src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`} alt="" />
+              {isMobile ? (
                 <Link to={`/details/${movie.id}`}>
-                  <RoundButton><FontAwesomeIcon icon={faPlay} /></RoundButton>
+                  <img
+                    className="movie-image"
+                    src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                    alt={movie.title}
+                  />
                 </Link>
-                <RoundButton onClick={() => handleClick(movie)}>{added ? <FontAwesomeIcon icon={faCheck} /> : <FontAwesomeIcon icon={faPlus} />}</RoundButton>
-                <h3>{movie.title}</h3>
-                <p className="release-date">{movie.release_date}</p>
-                <p>{movie.overview}</p>
-              </DescriptionPopup>
+              ) : (
+                <img
+                  className="movie-image"
+                  src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                  alt={movie.title}
+                />
+              )}
+              {!isMobile && (
+                <DescriptionPopup className="description">
+                  <img className="backdrop-image" src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`} alt="" />
+                  <Link to={`/details/${movie.id}`}>
+                    <RoundButton><FontAwesomeIcon icon={faPlay} /></RoundButton>
+                  </Link>
+                  <RoundButton onClick={() => handleClick(movie)}>{added ? <FontAwesomeIcon icon={faCheck} /> : <FontAwesomeIcon icon={faPlus} />}</RoundButton>
+                  <h3>{movie.title}</h3>
+                  <p className="release-date">{movie.release_date}</p>
+                  <p>{movie.overview}</p>
+                </DescriptionPopup>
+              )}
             </MovieItem>
           ))}
         </CarouselContainer>
@@ -94,21 +109,33 @@ export default function Home() {
           {tvData && tvData.slice(0, 10).map((tv, index) => (
             <MovieItem key={tv.id}>
               <span className="toplist-number">{index + 1}</span>
-              <img
-                className="movie-image"
-                src={`https://image.tmdb.org/t/p/original/${tv.poster_path}`}
-                alt={tv.name}
-              />
-              <DescriptionPopup className="description">
-                <img className="backdrop-image" src={`https://image.tmdb.org/t/p/original/${tv.backdrop_path}`} alt="" />
+              {isMobile ? (
                 <Link to={`/details/${tv.id}`}>
-                  <RoundButton><FontAwesomeIcon icon={faPlay} /></RoundButton>
+                  <img
+                    className="movie-image"
+                    src={`https://image.tmdb.org/t/p/original/${tv.poster_path}`}
+                    alt={tv.name}
+                  />
                 </Link>
-                <RoundButton onClick={() => handleClick(tv)}>{added ? <FontAwesomeIcon icon={faCheck} /> : <FontAwesomeIcon icon={faPlus} />}</RoundButton>
-                <h3>{tv.name}</h3>
-                <p className="release-date">{tv.first_air_date}</p>
-                <p>{tv.overview}</p>
-              </DescriptionPopup>
+              ) : (
+                <img
+                  className="movie-image"
+                  src={`https://image.tmdb.org/t/p/original/${tv.poster_path}`}
+                  alt={tv.name}
+                />
+              )}
+              {!isMobile && (
+                <DescriptionPopup className="description">
+                  <img className="backdrop-image" src={`https://image.tmdb.org/t/p/original/${tv.backdrop_path}`} alt="" />
+                  <Link to={`/details/${tv.id}`}>
+                    <RoundButton><FontAwesomeIcon icon={faPlay} /></RoundButton>
+                  </Link>
+                  <RoundButton onClick={() => handleClick(tv)}>{added ? <FontAwesomeIcon icon={faCheck} /> : <FontAwesomeIcon icon={faPlus} />}</RoundButton>
+                  <h3>{tv.name}</h3>
+                  <p className="release-date">{tv.first_air_date}</p>
+                  <p>{tv.overview}</p>
+                </DescriptionPopup>
+              )}
             </MovieItem>
           ))}
         </CarouselContainer>
