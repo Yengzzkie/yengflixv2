@@ -6,6 +6,8 @@ import { faCheck, faPlay, faPlus } from "@fortawesome/free-solid-svg-icons";
 import Button from "../components/Button";
 import styled from "styled-components";
 import { MovieCarousel, CarouselContainer, MovieItem, ScrollButton, RoundButton } from "../components/CarouselComponents";
+import VideoType from "../components/VideoType";
+import Title from "../components/Title";
 import DescriptionPopup from "../components/DescriptionPopup";
 import { useMediaQuery } from 'react-responsive';
 
@@ -90,7 +92,8 @@ export default function Home() {
                     <RoundButton><FontAwesomeIcon icon={faPlay} /></RoundButton>
                   </Link>
                   <RoundButton onClick={() => handleClick(movie)}>{added ? <FontAwesomeIcon icon={faCheck} /> : <FontAwesomeIcon icon={faPlus} />}</RoundButton>
-                  <h3>{movie.title}</h3>
+                  <VideoType>{movie.type}</VideoType>
+                  <Title>{movie.title}</Title>
                   <p className="release-date">{movie.release_date}</p>
                   <p>{movie.overview}</p>
                 </DescriptionPopup>
@@ -131,6 +134,7 @@ export default function Home() {
                     <RoundButton><FontAwesomeIcon icon={faPlay} /></RoundButton>
                   </Link>
                   <RoundButton onClick={() => handleClick(tv)}>{added ? <FontAwesomeIcon icon={faCheck} /> : <FontAwesomeIcon icon={faPlus} />}</RoundButton>
+                  <VideoType>{tv.type}</VideoType>
                   <h3>{tv.name}</h3>
                   <p className="release-date">{tv.first_air_date}</p>
                   <p>{tv.overview}</p>

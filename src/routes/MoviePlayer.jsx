@@ -1,6 +1,8 @@
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { MovieDataContext, TvDataContext } from "./Root";
+import VideoType from "../components/VideoType";
+import Title from "../components/Title";
 import styled from "styled-components";
 
 const PlayerWrapper = styled.div`
@@ -27,7 +29,7 @@ const Player = styled.div`
 const MovieDetail = styled.div`
   position: relative;
   display: flex;
-  background: linear-gradient(to left, #141414f7, #141414db, #14141499, #14141457, #14141400);
+  background: linear-gradient(to left, #141414f7, #1414149c, #1414147d, #1414143b, #14141400);
   width: 100%;
   height: auto;
   padding: 2rem 0;
@@ -37,8 +39,14 @@ const MovieDetail = styled.div`
     margin: 0 5rem 0 2rem;
   }
 
-  h1 {
+  & h1 {
+    display: flex;
+    align-items: center;
     margin-bottom: 1rem;
+  }
+
+  & .rating {
+    margin-bottom: .5rem;
   }
 
   & .image-wrapper {
@@ -62,12 +70,6 @@ const MovieDetail = styled.div`
       background: linear-gradient(to left, #141414f7, #141414db, #14141499, #14141457, #14141400);
       z-index: 0;
     }
-
-    & .rating {
-      position: relative;
-      margin: .5rem;
-      z-index: 99999;
-    }
   }
 
   @media screen and (max-width: 1024px) {
@@ -76,6 +78,10 @@ const MovieDetail = styled.div`
     .details-description-wrapper {
       width: 100vw;
       margin: 0 .5rem 0 .2rem;
+
+      & .rating {
+        margin-bottom: .5rem;
+      }
     }
   }
 `
@@ -111,13 +117,13 @@ export default function MoviePlayer() {
             src={`https://image.tmdb.org/t/p/original/${viewingContent.poster_path}`}
             alt={viewingContent.title || viewingContent.name}
           />
-          <p className="rating"><strong>Released:</strong> {viewingContent.release_date || viewingContent.first_air_date}</p>
-          <p className="rating"><strong>Rating:</strong> {Math.round(viewingContent.vote_average)} / 10</p>
           <div className="overlay"></div>
         </div>
 
         <div className="details-description-wrapper">
-          <h1>{viewingContent.title || viewingContent.name}</h1>
+          <Title>{viewingContent.title || viewingContent.name} <VideoType>{viewingContent.type}</VideoType></Title>
+          <p><strong>Released:</strong> {viewingContent.release_date || viewingContent.first_air_date}</p>
+          <p className="rating"><strong>Rating:</strong> {Math.round(viewingContent.vote_average)} / 10</p>
           <p>{viewingContent.overview}</p>
         </div>
       </MovieDetail>

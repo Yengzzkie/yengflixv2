@@ -10,12 +10,17 @@ const DescriptionPopup = styled.div`
     transform: translate(-50%, -50%);
     background-color: rgba(0, 0, 0, 0.9);
     color: white;
+    font-size: .9rem;
     z-index: 2;
     overflow: auto;
     animation: popUp .3s linear forwards;
 
     &::-webkit-scrollbar {
       display: none;
+    }
+
+    & h1 {
+      margin: 0.5rem 1rem;
     }
 
     & p {
