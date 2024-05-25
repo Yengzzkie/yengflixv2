@@ -10,7 +10,8 @@ const Grid = styled.div`
   margin-top: 2rem;
 
   @media screen and (max-width: 1024px) {
-    grid-template-columns: repeat(auto-fill, minmax(25vw, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(35vw, 1fr));
+    padding: 1rem;
   }
 `;
 

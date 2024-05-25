@@ -76,6 +76,6 @@ main {
 
   .movie-image {
     left: 43%;
-    width: 100px;
+    width: 100px !important;
   }
 }

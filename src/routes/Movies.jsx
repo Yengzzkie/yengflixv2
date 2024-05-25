@@ -15,6 +15,7 @@ import styled from "styled-components";
 
 const MovieList = styled.li`
     position: relative;
+    margin: 0;
 
     &:hover {
         .description {
