@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
-import { ErrorContext, LoadingContext, PageContext, MyListContext, AddedToListContext } from "./Root";
+import { PageContext, MyListContext, AddedToListContext, AllMoviesContext } from "./Root";
 import { RoundButton } from "../components/CarouselComponents";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -31,51 +31,13 @@ const MovieList = styled.li`
 `
 
 export default function Movies() {
-  const [movies, setMovies] = useState([]);
-  const { setError } = useContext(ErrorContext);
-  const { setLoading } = useContext(LoadingContext);
+  
+  const { movies } = useContext(AllMoviesContext);
   const { setCurrentPage } = useContext(PageContext);
   const { setMyList } = useContext(MyListContext);
   const { added, setAdded } = useContext(AddedToListContext);
 
   const isMobile = useMediaQuery({ query: "(max-width: 1024px)" });
-
-  const options = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmOTkwMGIwZmVhZjZjZjVkMjk0MDc1YjAxNDRkMmZiYSIsInN1YiI6IjY2MTA4NDQ1NWIzNzBkMDE3MDYzMzFjNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.r2V8Oru9xaAu4JLQPZw_nqv_lVULwa-ZPfq8ruQHwvg",
-    },
-  };
-
-  useEffect(() => {
-    const fetchAllMovies = async () => {
-      try {
-        const response = await fetch(
-          `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`,
-          options
-        );
-        if (!response.ok) {
-          throw new Error("HTTP request unsuccessful");
-        }
-        const result = await response.json();
-        const modResult = await result.results;
-        const newMovieArray = modResult.map((movies) => ({
-          ...movies,
-          type: "movie",
-        }));
-        console.log(newMovieArray);
-        setMovies(newMovieArray);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchAllMovies();
-  }, []);
 
   function incrementPage() {
     setCurrentPage((prevPage) => prevPage + 1);

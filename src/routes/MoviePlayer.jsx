@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
-import { MovieDataContext, TvDataContext } from "./Root";
+import { AllMoviesContext, MovieDataContext, TvDataContext } from "./Root";
 import VideoType from "../components/VideoType";
 import Title from "../components/Title";
 import styled from "styled-components";
@@ -16,7 +16,7 @@ const Player = styled.div`
 
   & iframe {
     width: 100%;
-    height: 100vh;
+    height: 90vh;
   }
 
   @media screen and (max-width: 1024px) {
@@ -87,20 +87,22 @@ const MovieDetail = styled.div`
 `
 
 export default function MoviePlayer() {
-  const { data } = useContext(MovieDataContext);
+  const { data } = useContext(MovieDataContext)
+  const { movies } = useContext(AllMoviesContext);
   const { tvData } = useContext(TvDataContext);
   const { movieId } = useParams();
 
-  const viewingMovie = data.find(movie => movie.id === parseInt(movieId));
+  const viewingTopMovie = data.find(data => data.id === parseInt(movieId));
+  const viewingMovie = movies.find(movie => movie.id === parseInt(movieId));
   const viewingTv = tvData.find(tv => tv.id === parseInt(movieId));
 
-  const viewingContent = viewingMovie || viewingTv;
+  const viewingContent = viewingTopMovie || viewingMovie || viewingTv;
 
   if (!viewingContent) {
     return <p>Content not found</p>;
   }
 
-  const isMovie = !!viewingMovie;
+  const isMovie = !!viewingMovie || !!viewingTopMovie;
   const iframeSrc = isMovie
     ? `https://vidsrc.xyz/embed/movie/${viewingContent.id}`
     : `https://vidsrc.xyz/embed/tv/${viewingContent.id}`;
