@@ -33,14 +33,14 @@ const MovieList = styled.li`
 export default function Movies() {
   
   const { movies } = useContext(AllMoviesContext);
-  const { setCurrentPage } = useContext(PageContext);
+  const { setMoviePage } = useContext(PageContext);
   const { setMyList } = useContext(MyListContext);
   const { added, setAdded } = useContext(AddedToListContext);
 
   const isMobile = useMediaQuery({ query: "(max-width: 1024px)" });
 
   function incrementPage() {
-    setCurrentPage((prevPage) => prevPage + 1);
+    setMoviePage((prevPage) => prevPage + 1);
   }
 
   function handleAddToList(newMovie) {

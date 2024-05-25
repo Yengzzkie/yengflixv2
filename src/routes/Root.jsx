@@ -17,7 +17,7 @@ export default function Root() {
   const [data, setData] = useState(null);
   const [tvData, setTvData] = useState(null);
   const [myList, setMyList] = useLocalStorage("myList", []);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [moviePage, setMoviePage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [added, setAdded] = useState(false);
@@ -87,7 +87,7 @@ export default function Root() {
     const fetchAllMovies = async () => {
       try {
         const response = await fetch(
-          `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${currentPage}&sort_by=popularity.desc`,
+          `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${moviePage}&sort_by=popularity.desc`,
           options
         );
         if (!response.ok) {
@@ -109,7 +109,7 @@ export default function Root() {
     };
 
     fetchAllMovies();
-  }, [currentPage]);
+  }, [moviePage]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -117,7 +117,7 @@ export default function Root() {
 
   return (
     <>
-      <PageContext.Provider value={{ currentPage, setCurrentPage }}>
+      <PageContext.Provider value={{ moviePage, setMoviePage }}>
         <TvDataContext.Provider value={{ tvData, setTvData }}>
           <MovieDataContext.Provider value={{ data, setData }}>
             <AllMoviesContext.Provider value={{ movies }}>
