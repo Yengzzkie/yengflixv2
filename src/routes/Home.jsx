@@ -62,7 +62,7 @@ export default function Home() {
       <MovieCarousel>
         <ScrollLeftButton onClick={() => scrollLeft(movieCarouselRef)}>‹</ScrollLeftButton>
         <CarouselContainer ref={movieCarouselRef}>
-          {data && data.map((movie, index) => (
+          {data && data.slice(0, 10).map((movie, index) => (
             <MovieItem key={movie.id}>
               <span className="toplist-number">{index + 1}</span>
               {isMobile ? (

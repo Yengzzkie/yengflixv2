@@ -2,15 +2,15 @@ import styled from "styled-components";
 
 const DescriptionPopup = styled.div`
     display: none;
-    width: 350px;
-    height: 350px;
     position: absolute;
-    top: -10%;
+    top: -15%;
     left: 0;
     transform: translate(-50%, -50%);
     background-color: rgba(0, 0, 0, 0.9);
     color: white;
     font-size: .9rem;
+    width: 330px;
+    height: 380px;
     z-index: 2;
     overflow: auto;
     animation: popUp .3s linear forwards;

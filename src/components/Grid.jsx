@@ -7,7 +7,7 @@ const Grid = styled.div`
   list-style: none;
   width: 100%;
   padding: 1rem 5rem;
-  margin-top: 2rem;
+  margin-top: 3rem;
 
   @media screen and (max-width: 1024px) {
     grid-template-columns: repeat(auto-fill, minmax(25vw, 1fr));

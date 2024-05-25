@@ -1,4 +1,5 @@
 import Navigation from "../components/Navigation";
+import Footer from "../components/Footer";
 import { Outlet } from "react-router-dom";
 import { useState, useEffect, createContext } from "react";
 import useLocalStorage from "../utils/useLocalStorage";
@@ -161,6 +162,7 @@ export default function Root() {
                         <LoadingContext.Provider value={{ setLoading }}>
                           <Navigation />
                           <Outlet />
+                          <Footer />
                         </LoadingContext.Provider>
                       </ErrorContext.Provider>
                     </AddedToListContext.Provider>

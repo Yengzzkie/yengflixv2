@@ -30,13 +30,14 @@ li {
 }
 
 main {
+  min-height: 100%;
   padding: 1.5rem;
 }
 
 .movie-image {
   position: absolute;
   left: 65%;
-  top: 0;
+  top: -35px;
 }
 
 .release-date {
@@ -54,8 +55,8 @@ main {
 
 .toplist-number {
   color: #242424;
-  font-size: 270px;
-  letter-spacing: -65px;
+  font-size: 237px;
+  letter-spacing: -37px;
   text-shadow: -1px -1px 5px #ededed, 1px -1px 5px #ededed, -1px 1px 5px #ededed,
     1px 1px 5px #ededed;
   z-index: -1;
@@ -77,8 +78,8 @@ input {
   }
 
   input {
-    padding: .3rem;
-    width: 250px;
+    padding: .2rem;
+    width: 150px;
     margin: .5rem;
   }
 
@@ -86,6 +87,7 @@ input {
     position: sticky;
     top: 2%;
     color: rgb(255, 22, 22);
+    font-size: 1.75rem;
     z-index: 99999;
   }
 
@@ -106,12 +108,12 @@ input {
   }
 
   .toplist-number {
-    font-size: 150px;
-    letter-spacing: -35px;
+    font-size: 110px;
+    letter-spacing: -10px;
   }
 
   .movie-image {
-    left: 43%;
+    left: 40%;
     width: 100px !important;
   }
 

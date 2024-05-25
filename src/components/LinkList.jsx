@@ -14,6 +14,10 @@ const LinkList = styled.ul`
       flex-direction: column;
       justify-content: space-between;
       width: 50vw;
+
+      li {
+        margin-bottom: .5rem;
+      }
     }
   `
 
