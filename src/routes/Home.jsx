@@ -25,8 +25,6 @@ export default function Home() {
   const movieCarouselRef = useRef(null);
   const tvCarouselRef = useRef(null);
 
-  
-
   function incrementPage() {
     setCurrentPage((prevPage) => prevPage + 1);
   }

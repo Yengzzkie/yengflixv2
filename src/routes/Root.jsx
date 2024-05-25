@@ -65,6 +65,7 @@ export default function Root() {
         const result = await response.json();
         const newTVArray = result.results.map(tv => ({ ...tv, type: "tv" }));
         setTvData(newTVArray);
+        console.log(newTVArray)
       } catch (error) {
         setError(error.message);
       } finally {
