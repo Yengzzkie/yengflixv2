@@ -1,18 +1,20 @@
 import Navigation from "../components/Navigation";
 import { Outlet } from "react-router-dom";
 import { useState, useEffect, createContext } from "react";
-import useLocalStorage from '../utils/useLocalStorage';
+import useLocalStorage from "../utils/useLocalStorage";
 
 export const MovieDataContext = createContext();
 export const PageContext = createContext();
 export const TvDataContext = createContext();
 export const MyListContext = createContext();
 export const AddedToListContext = createContext();
+export const LoadingContext = createContext();
+export const ErrorContext = createContext();
 
 export default function Root() {
   const [data, setData] = useState(null);
   const [tvData, setTvData] = useState(null);
-  const [myList, setMyList] = useLocalStorage('myList', []); // Use custom hook
+  const [myList, setMyList] = useLocalStorage("myList", []);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -28,7 +30,7 @@ export default function Root() {
   };
 
   useEffect(() => {
-    const fetchMovies = async () => {
+    const fetchTopMovies = async () => {
       try {
         const response = await fetch(
           `https://api.themoviedb.org/3/trending/movie/day`,
@@ -39,7 +41,10 @@ export default function Root() {
         }
         const result = await response.json();
         const modResult = await result.results;
-        const newMovieArray = modResult.map(movies => ({ ...movies, type: "movie" }));
+        const newMovieArray = modResult.map((movies) => ({
+          ...movies,
+          type: "movie",
+        }));
         console.log(newMovieArray);
         setData(newMovieArray);
       } catch (error) {
@@ -49,7 +54,7 @@ export default function Root() {
       }
     };
 
-    fetchMovies();
+    fetchTopMovies();
   }, []);
 
   useEffect(() => {
@@ -63,9 +68,9 @@ export default function Root() {
           throw new Error("HTTP request unsuccessful");
         }
         const result = await response.json();
-        const newTVArray = result.results.map(tv => ({ ...tv, type: "tv" }));
+        const newTVArray = result.results.map((tv) => ({ ...tv, type: "tv" }));
         setTvData(newTVArray);
-        console.log(newTVArray)
+        console.log(newTVArray);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -87,8 +92,12 @@ export default function Root() {
           <MovieDataContext.Provider value={{ data, setData }}>
             <MyListContext.Provider value={{ myList, setMyList }}>
               <AddedToListContext.Provider value={{ added, setAdded }}>
-                <Navigation />
-                <Outlet />
+                <ErrorContext.Provider value={{ setError }}>
+                  <LoadingContext.Provider value={{ setLoading }}>
+                    <Navigation />
+                    <Outlet />
+                  </LoadingContext.Provider>
+                </ErrorContext.Provider>
               </AddedToListContext.Provider>
             </MyListContext.Provider>
           </MovieDataContext.Provider>

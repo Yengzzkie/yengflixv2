@@ -36,9 +36,15 @@ main {
   position: absolute;
   left: 65%;
   top: 0;
-  box-shadow: -5px 5px 5px #000000;
-  width: 100%;
-  z-index: 1;
+}
+
+.release-date {
+  color: gray;
+  font-size: .8rem;
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: .5rem;
+  width: 6rem;
 }
 
 .backdrop-image {

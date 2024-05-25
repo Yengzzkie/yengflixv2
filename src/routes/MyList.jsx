@@ -6,24 +6,9 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
+import ImageCard from "../components/ImageCard";
+import Grid from "../components/Grid";
 
-const MyListWrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(10vw, 1fr));
-  gap: 20px;
-  list-style: none;
-  width: 100%;
-  margin-top: 2rem;
-
-  & .mylist-image {
-    box-shadow: -5px 5px 5px #000000;
-    width: 100%;
-  }
-
-  @media screen and (max-width: 1024px) {
-    grid-template-columns: repeat(auto-fill, minmax(25vw, 1fr));
-  }
-`;
 const MyListItems = styled.li`
   position: relative;
   margin: 0;
@@ -62,10 +47,10 @@ export default function MyList() {
 
   return (
     <div className="my-list">
-      <MyListWrapper>
+      <Grid>
         {myList.map((list) => (
           <MyListItems key={list.id}>
-            <img
+            <ImageCard
               className="mylist-image"
               src={`https://image.tmdb.org/t/p/w500/${list.poster_path}`}
               alt={list.name || list.title}
@@ -80,7 +65,7 @@ export default function MyList() {
             </RoundButton>
           </MyListItems>
         ))}
-      </MyListWrapper>
+      </Grid>
     </div>
   );
 }

@@ -1,15 +1,15 @@
 import { useContext, useRef } from "react";
-import { PageContext, TvDataContext, MovieDataContext, MyListContext, AddedToListContext } from "../routes/Root";
 import { Link } from "react-router-dom";
+import { useMediaQuery } from 'react-responsive';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPlay, faPlus } from "@fortawesome/free-solid-svg-icons";
-import Button from "../components/Button";
-import styled from "styled-components";
+import { TvDataContext, MovieDataContext, MyListContext, AddedToListContext } from "../routes/Root";
 import { MovieCarousel, CarouselContainer, MovieItem, ScrollButton, RoundButton } from "../components/CarouselComponents";
+import styled from "styled-components";
 import VideoType from "../components/VideoType";
 import Title from "../components/Title";
 import DescriptionPopup from "../components/DescriptionPopup";
-import { useMediaQuery } from 'react-responsive';
+import ImageCard from "../components/ImageCard";
 
 const ScrollLeftButton = styled(ScrollButton)`
     left: 10px;
@@ -23,16 +23,11 @@ export default function Home() {
   const { data } = useContext(MovieDataContext);
   const { tvData } = useContext(TvDataContext);
   const { setMyList } = useContext(MyListContext);
-  const { setCurrentPage } = useContext(PageContext);
   const { added, setAdded } = useContext(AddedToListContext);
   const movieCarouselRef = useRef(null);
   const tvCarouselRef = useRef(null);
 
   const isMobile = useMediaQuery({ query: '(max-width: 1024px)' });
-
-  function incrementPage() {
-    setCurrentPage((prevPage) => prevPage + 1);
-  }
 
   function handleAddToList(newMovie) {
     setMyList(prevList => {
@@ -72,14 +67,14 @@ export default function Home() {
               <span className="toplist-number">{index + 1}</span>
               {isMobile ? (
                 <Link to={`/details/${movie.id}`}>
-                  <img
+                  <ImageCard
                     className="movie-image"
                     src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
                     alt={movie.title}
                   />
                 </Link>
               ) : (
-                <img
+                <ImageCard
                   className="movie-image"
                   src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
                   alt={movie.title}
@@ -114,14 +109,14 @@ export default function Home() {
               <span className="toplist-number">{index + 1}</span>
               {isMobile ? (
                 <Link to={`/details/${tv.id}`}>
-                  <img
+                  <ImageCard
                     className="movie-image"
                     src={`https://image.tmdb.org/t/p/original/${tv.poster_path}`}
                     alt={tv.name}
                   />
                 </Link>
               ) : (
-                <img
+                <ImageCard
                   className="movie-image"
                   src={`https://image.tmdb.org/t/p/original/${tv.poster_path}`}
                   alt={tv.name}
@@ -146,7 +141,7 @@ export default function Home() {
         <ScrollRightButton onClick={() => scrollRight(tvCarouselRef)}>›</ScrollRightButton>
       </MovieCarousel>
 
-      <Button onClick={incrementPage}>Next</Button>
+      
     </main>
   );
 }
