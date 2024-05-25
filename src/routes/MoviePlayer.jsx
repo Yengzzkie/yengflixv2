@@ -1,6 +1,10 @@
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
-import { AllMoviesContext, MovieDataContext, TvDataContext } from "./Root";
+import { AllMoviesContext, MovieDataContext, TvDataContext, MyListContext } from "./Root";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { AddedToListContext } from "./Root";
+import { RoundButton } from "../components/CarouselComponents";
 import VideoType from "../components/VideoType";
 import Title from "../components/Title";
 import styled from "styled-components";
@@ -90,6 +94,8 @@ export default function MoviePlayer() {
   const { data } = useContext(MovieDataContext)
   const { movies } = useContext(AllMoviesContext);
   const { tvData } = useContext(TvDataContext);
+  const { setMyList } = useContext(MyListContext);
+  const { added, setAdded } = useContext(AddedToListContext);
   const { movieId } = useParams();
 
   const viewingTopMovie = data.find(data => data.id === parseInt(movieId));
@@ -106,6 +112,25 @@ export default function MoviePlayer() {
   const iframeSrc = isMovie
     ? `https://vidsrc.xyz/embed/movie/${viewingContent.id}`
     : `https://vidsrc.xyz/embed/tv/${viewingContent.id}`;
+
+
+    function handleAddToList(newMovie) {
+      setMyList(prevList => {
+        const updatedList = prevList || [];
+        if (!updatedList.some(movie => movie.id === newMovie.id)) {
+          return [...updatedList, newMovie];
+        }
+        return updatedList;
+      });
+    }
+
+    const handleClick = (movie) => {
+      handleAddToList(movie);
+      setAdded(true);
+      setTimeout(() => {
+        setAdded(false);
+      }, 2000);
+    };
 
   return (
     <PlayerWrapper>
@@ -127,6 +152,8 @@ export default function MoviePlayer() {
           <p><strong>Released:</strong> {viewingContent.release_date || viewingContent.first_air_date}</p>
           <p className="rating"><strong>Rating:</strong> {Math.round(viewingContent.vote_average)} / 10</p>
           <p>{viewingContent.overview}</p>
+          <RoundButton onClick={() => handleClick(viewingContent)}>{added ? <FontAwesomeIcon icon={faCheck} /> : <FontAwesomeIcon icon={faPlus} />}</RoundButton>
+
         </div>
       </MovieDetail>
     </PlayerWrapper>
