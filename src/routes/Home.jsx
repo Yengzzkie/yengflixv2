@@ -77,6 +77,7 @@ export default function Home() {
                 </Link>
                 <RoundButton onClick={() => handleClick(movie)}>{added ? <FontAwesomeIcon icon={faCheck} /> : <FontAwesomeIcon icon={faPlus} />}</RoundButton>
                 <h3>{movie.title}</h3>
+                <p className="release-date">{movie.release_date}</p>
                 <p>{movie.overview}</p>
               </DescriptionPopup>
             </MovieItem>
@@ -105,6 +106,7 @@ export default function Home() {
                 </Link>
                 <RoundButton onClick={() => handleClick(tv)}>{added ? <FontAwesomeIcon icon={faCheck} /> : <FontAwesomeIcon icon={faPlus} />}</RoundButton>
                 <h3>{tv.name}</h3>
+                <p className="release-date">{tv.first_air_date}</p>
                 <p>{tv.overview}</p>
               </DescriptionPopup>
             </MovieItem>

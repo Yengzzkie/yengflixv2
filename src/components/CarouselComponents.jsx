@@ -42,6 +42,19 @@ const MovieItem = styled.li`
       display: block;
     }
 
+    h3 {
+      margin: 0 1rem;
+    }
+
+    .release-date {
+      color: gray;
+      font-size: .8rem;
+      border: 1px solid gray;
+      border-radius: 5px;
+      padding: .5rem;
+      width: 6rem;
+    }
+
     @media screen and (max-width: 1024px) {
       width: 145px;
       margin-right: 20px;
