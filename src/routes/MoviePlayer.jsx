@@ -65,7 +65,7 @@ const MovieDetail = styled.div`
       z-index: -1;
     }
 
-    & .overlay {
+    & .image-overlay {
       position: absolute;
       top: 0;
       left: 0;
@@ -73,6 +73,7 @@ const MovieDetail = styled.div`
       height: 100%;
       background: linear-gradient(to left, #141414f7, #141414db, #14141499, #14141457, #14141400);
       z-index: 0;
+      margin-right: 10px;
     }
   }
 
@@ -146,7 +147,7 @@ export default function MoviePlayer() {
             src={`https://image.tmdb.org/t/p/original/${viewingContent.poster_path}`}
             alt={viewingContent.title || viewingContent.name}
           />
-          <div className="overlay"></div>
+          <div className="image-overlay"></div>
         </div>
 
         <div className="details-description-wrapper">
