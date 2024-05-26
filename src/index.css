@@ -79,7 +79,7 @@ input {
 
   input {
     padding: .2rem;
-    width: 150px;
+    width: 180px;
     margin: .5rem;
   }
 
@@ -109,7 +109,7 @@ input {
 
   .toplist-number {
     font-size: 110px;
-    letter-spacing: -10px;
+    letter-spacing: -18px;
   }
 
   .movie-image {
