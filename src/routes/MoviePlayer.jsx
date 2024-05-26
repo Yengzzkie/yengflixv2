@@ -96,7 +96,7 @@ export default function MoviePlayer() {
   const { movies } = useContext(AllMoviesContext);
   const { topTV } = useContext(TvDataContext);
   const { tvSeries } = useContext(AllTVContext);
-  const { setMyList } = useContext(MyListContext);
+  const { myList, setMyList } = useContext(MyListContext);
   const { added, setAdded } = useContext(AddedToListContext);
   const { movieId } = useParams();
 
@@ -104,14 +104,16 @@ export default function MoviePlayer() {
   const viewingMovie = movies.find(movie => movie.id === parseInt(movieId));
   const viewingTv = topTV.find(tv => tv.id === parseInt(movieId));
   const viewingSeries = tvSeries.find(series => series.id === parseInt(movieId))
+  const viewingList = myList.find(series => series.id === parseInt(movieId))
 
-  const viewingContent = viewingTopMovie || viewingMovie || viewingTv || viewingSeries;
+  const viewingContent = viewingList || viewingTopMovie || viewingMovie || viewingTv || viewingSeries;
 
   if (!viewingContent) {
     return <p>Content not found</p>;
   }
 
-  const isMovie = !!viewingMovie || !!viewingTopMovie;
+  const isMovie = viewingContent.type === "movie";
+
   const iframeSrc = isMovie
     ? `https://vidsrc.xyz/embed/movie/${viewingContent.id}`
     : `https://vidsrc.xyz/embed/tv/${viewingContent.id}`;
