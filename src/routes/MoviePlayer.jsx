@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { AllMoviesContext, MovieDataContext, TvDataContext, MyListContext, AllTVContext } from "./Root";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -89,10 +89,10 @@ const MovieDetail = styled.div`
       }
     }
   }
-`
+`;
 
 export default function MoviePlayer() {
-  const { data } = useContext(MovieDataContext)
+  const { data } = useContext(MovieDataContext);
   const { movies } = useContext(AllMoviesContext);
   const { topTV } = useContext(TvDataContext);
   const { tvSeries } = useContext(AllTVContext);
@@ -103,10 +103,16 @@ export default function MoviePlayer() {
   const viewingTopMovie = data.find(data => data.id === parseInt(movieId));
   const viewingMovie = movies.find(movie => movie.id === parseInt(movieId));
   const viewingTv = topTV.find(tv => tv.id === parseInt(movieId));
-  const viewingSeries = tvSeries.find(series => series.id === parseInt(movieId))
-  const viewingList = myList.find(series => series.id === parseInt(movieId))
+  const viewingSeries = tvSeries.find(series => series.id === parseInt(movieId));
+  const viewingList = myList.find(series => series.id === parseInt(movieId));
 
   const viewingContent = viewingList || viewingTopMovie || viewingMovie || viewingTv || viewingSeries;
+
+  const [currentDate, setCurrentDate] = useState(new Date());
+
+  useEffect(() => {
+    setCurrentDate(new Date());
+  }, []);
 
   if (!viewingContent) {
     return <p>Content not found</p>;
@@ -118,24 +124,26 @@ export default function MoviePlayer() {
     ? `https://vidsrc.xyz/embed/movie/${viewingContent.id}`
     : `https://vidsrc.xyz/embed/tv/${viewingContent.id}`;
 
+  function handleAddToList(newMovie) {
+    setMyList(prevList => {
+      const updatedList = prevList || [];
+      if (!updatedList.some(movie => movie.id === newMovie.id)) {
+        return [...updatedList, newMovie];
+      }
+      return updatedList;
+    });
+  }
 
-    function handleAddToList(newMovie) {
-      setMyList(prevList => {
-        const updatedList = prevList || [];
-        if (!updatedList.some(movie => movie.id === newMovie.id)) {
-          return [...updatedList, newMovie];
-        }
-        return updatedList;
-      });
-    }
+  const handleClick = (movie) => {
+    handleAddToList(movie);
+    setAdded(true);
+    setTimeout(() => {
+      setAdded(false);
+    }, 2000);
+  };
 
-    const handleClick = (movie) => {
-      handleAddToList(movie);
-      setAdded(true);
-      setTimeout(() => {
-        setAdded(false);
-      }, 2000);
-    };
+  const releaseDate = new Date(viewingContent.release_date || viewingContent.first_air_date);
+  const comingSoon = releaseDate > currentDate ? "Coming Soon" : null;
 
   return (
     <PlayerWrapper>
@@ -154,11 +162,13 @@ export default function MoviePlayer() {
 
         <div className="details-description-wrapper">
           <Title>{viewingContent.title || viewingContent.name} <VideoType>{viewingContent.type}</VideoType></Title>
-          <p><strong>Released:</strong> {viewingContent.release_date || viewingContent.first_air_date}</p>
+          {comingSoon ? <p className="coming-soon">{comingSoon}</p> : null}
+          <p>
+            <strong>Released:</strong> {viewingContent.release_date || viewingContent.first_air_date}
+          </p>
           <p className="rating"><strong>Rating:</strong> {Math.round(viewingContent.vote_average)} / 10</p>
           <p>{viewingContent.overview}</p>
           <RoundButton onClick={() => handleClick(viewingContent)}>{added ? <FontAwesomeIcon icon={faCheck} /> : <FontAwesomeIcon icon={faPlus} />}</RoundButton>
-
         </div>
       </MovieDetail>
     </PlayerWrapper>

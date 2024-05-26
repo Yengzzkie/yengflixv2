@@ -49,6 +49,17 @@ main {
   width: 6rem;
 }
 
+.coming-soon {
+  background: red;
+  color: #fff;
+  font-size: .8rem;
+  text-align: center;
+  border-radius: 5px;
+  width: fit-content;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
 .backdrop-image {
   width: 100%;
 }
