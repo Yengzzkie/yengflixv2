@@ -98,7 +98,7 @@ export default function TVshows() {
                   )}
                 </RoundButton>
                 <VideoType>{series.type}</VideoType>
-                <Title>{series.title}</Title>
+                <Title>{series.name}</Title>
                 <p className="release-date">{series.first_air_date}</p>
                 <p>{series.overview}</p>
               </DescriptionPopup>
