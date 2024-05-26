@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
-import { MyListContext } from "./Root";
+import { MyListContext } from "../utils/context";
 import { RoundButton } from "../components/CarouselComponents";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";

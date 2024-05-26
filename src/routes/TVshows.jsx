@@ -1,16 +1,16 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
-import { TvPageContext, MyListContext, AddedToListContext, AllTVContext, CurrentDateContext } from "./Root";
+import { TvPageContext, MyListContext, AddedToListContext, AllTVContext, CurrentDateContext } from "../utils/context";
 import { RoundButton } from "../components/CarouselComponents";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faCheck, faPlus, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import Grid from "../components/Grid";
 import ImageCard from "../components/ImageCard";
 import VideoType from "../components/VideoType";
 import Title from "../components/Title";
-import Button from "../components/Button";
 import DescriptionPopup from "../components/DescriptionPopup";
+import NextPrevButton from "../components/NextPrevButton";
 import NewBadge from "../components/NewBadge";
 import styled from "styled-components";
 
@@ -31,6 +31,14 @@ const MovieList = styled.li`
     }
 `;
 
+const NextButton = styled(NextPrevButton)`
+    right: 12px;
+`
+
+const PrevButton = styled(NextPrevButton)`
+    left: 12px;
+`
+
 export default function TVshows() {
   const { tvSeries } = useContext(AllTVContext);
   const { setTvPage } = useContext(TvPageContext);
@@ -43,6 +51,16 @@ export default function TVshows() {
   function incrementPage() {
     setTvPage((prevPage) => prevPage + 1);
   }
+
+  function decrementPage() {
+    setTvPage((prevPage) => {
+      if (prevPage > 1) {
+        return prevPage - 1;
+      }
+      return prevPage;
+    });
+  }
+
 
   function handleAddToList(newMovie) {
     setMyList((prevList) => {
@@ -115,7 +133,8 @@ export default function TVshows() {
             </MovieList>
           );
         })}
-      <Button onClick={incrementPage}>Next</Button>
+      <PrevButton onClick={decrementPage}><FontAwesomeIcon icon={faChevronLeft}></FontAwesomeIcon></PrevButton>
+      <NextButton onClick={incrementPage}><FontAwesomeIcon icon={faChevronRight}></FontAwesomeIcon></NextButton>
     </Grid>
   );
 }

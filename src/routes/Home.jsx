@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useMediaQuery } from 'react-responsive';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPlay, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { TvDataContext, MovieDataContext, MyListContext, AddedToListContext, CurrentDateContext } from "../routes/Root";
+import { TvDataContext, MovieDataContext, MyListContext, AddedToListContext, CurrentDateContext } from "../utils/context";
 import { MovieCarousel, CarouselContainer, MovieItem, ScrollButton, RoundButton } from "../components/CarouselComponents";
 import styled from "styled-components";
 import NewBadge from "../components/NewBadge";

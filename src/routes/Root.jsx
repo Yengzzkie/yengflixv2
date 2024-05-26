@@ -1,20 +1,13 @@
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import { Outlet } from "react-router-dom";
-import { useState, useEffect, createContext } from "react";
+import { useState, useEffect } from "react";
 import useLocalStorage from "../utils/useLocalStorage";
-
-export const MovieDataContext = createContext(); // top 10 movies
-export const AllMoviesContext = createContext();
-export const TvDataContext = createContext(); // top 10 tv shows
-export const AllTVContext = createContext();
-export const MyListContext = createContext();
-export const MoviePageContext = createContext();
-export const TvPageContext = createContext();
-export const AddedToListContext = createContext();
-export const LoadingContext = createContext();
-export const ErrorContext = createContext();
-export const CurrentDateContext = createContext();
+import { 
+  MovieDataContext, AllMoviesContext, TvDataContext, AllTVContext, 
+  MyListContext, MoviePageContext, TvPageContext, AddedToListContext, 
+  LoadingContext, ErrorContext, CurrentDateContext 
+} from "../utils/context";
 
 export default function Root() {
   const [movies, setMovies] = useState([]);

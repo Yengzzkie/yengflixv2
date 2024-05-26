@@ -1,9 +1,8 @@
 import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { AllMoviesContext, MovieDataContext, TvDataContext, MyListContext, AllTVContext, CurrentDateContext } from "./Root";
+import { AllMoviesContext, MovieDataContext, TvDataContext, MyListContext, AllTVContext, AddedToListContext, CurrentDateContext } from "../utils/context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { AddedToListContext } from "./Root";
 import { RoundButton } from "../components/CarouselComponents";
 import VideoType from "../components/VideoType";
 import Title from "../components/Title";

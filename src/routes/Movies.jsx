@@ -1,18 +1,18 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
-import { MoviePageContext, MyListContext, AddedToListContext, AllMoviesContext, CurrentDateContext } from "./Root";
+import { MoviePageContext, MyListContext, AddedToListContext, AllMoviesContext, CurrentDateContext } from "../utils/context";
 import { RoundButton } from "../components/CarouselComponents";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faCheck, faPlus, faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import Grid from "../components/Grid";
 import ImageCard from "../components/ImageCard";
 import VideoType from "../components/VideoType";
 import Title from "../components/Title";
-import Button from "../components/Button";
 import DescriptionPopup from "../components/DescriptionPopup";
 import NewBadge from "../components/NewBadge";
 import styled from "styled-components";
+import NextPrevButton from "../components/NextPrevButton";
 
 const MovieList = styled.li`
     position: relative;
@@ -31,6 +31,14 @@ const MovieList = styled.li`
     }
 `;
 
+const NextButton = styled(NextPrevButton)`
+    right: 12px;
+`
+
+const PrevButton = styled(NextPrevButton)`
+    left: 12px;
+`
+
 export default function Movies() {
   const { movies } = useContext(AllMoviesContext);
   const { setMoviePage } = useContext(MoviePageContext);
@@ -42,6 +50,15 @@ export default function Movies() {
 
   function incrementPage() {
     setMoviePage((prevPage) => prevPage + 1);
+  }
+
+  function decrementPage() {
+    setMoviePage((prevPage) => {
+      if (prevPage > 1) {
+        return prevPage - 1;
+      }
+      return prevPage;
+    });
   }
 
   function handleAddToList(newMovie) {
@@ -115,7 +132,8 @@ export default function Movies() {
             </MovieList>
           );
         })}
-      <Button onClick={incrementPage}>Next</Button>
+      <PrevButton onClick={decrementPage}><FontAwesomeIcon icon={faChevronLeft}></FontAwesomeIcon></PrevButton>
+      <NextButton onClick={incrementPage}><FontAwesomeIcon icon={faChevronRight}></FontAwesomeIcon></NextButton>
     </Grid>
   );
 }
