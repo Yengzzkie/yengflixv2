@@ -26,7 +26,7 @@ export default function Navigation() {
           <Link to="/" onClick={handleLinkClick}>
             <h1 className="mobile-logo">YENGFLIX</h1>
           </Link>
-          <input type="text" placeholder="Search Movies or TV Series" className="visible" />
+          <input type="text" placeholder="Search Movies or TV" className="visible" />
         </div>
       ) : null}
       <div className={`overlay ${menuOpen ? 'visible' : ''}`}>
@@ -50,11 +50,6 @@ export default function Navigation() {
               <Link to="/mylist" onClick={handleLinkClick}>My List</Link>
             </li>
           </LinkList>
-          {isMobile ? (
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
-          ) : (
-            <input type="text" placeholder="Search Movies or TV Series" className="visible" />
-          )}
         </Nav>
       </div>
     </>

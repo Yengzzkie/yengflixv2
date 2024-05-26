@@ -78,9 +78,16 @@ main {
 }
 
 input {
-  padding: .5rem;
+  background: gray;
+  color: #fff;
   width: 300px;
+  border: none;
+  padding: .5rem 1rem;
   margin-right: 1rem;
+
+  &::placeholder {
+    color: #dedede;
+  }
 }
 
 @media screen and (max-width: 1024px) {
