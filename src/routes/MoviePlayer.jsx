@@ -1,33 +1,18 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { AllMoviesContext, MovieDataContext, TvDataContext, MyListContext, AllTVContext } from "./Root";
+import { AllMoviesContext, MovieDataContext, TvDataContext, MyListContext, AllTVContext, CurrentDateContext } from "./Root";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { AddedToListContext } from "./Root";
 import { RoundButton } from "../components/CarouselComponents";
 import VideoType from "../components/VideoType";
 import Title from "../components/Title";
+import Player from "../components/Player";
 import styled from "styled-components";
 
 const PlayerWrapper = styled.div`
   height: 100vh;
   width: 100vw;
-`;
-
-const Player = styled.div`
-  width: auto;
-  height: auto;
-
-  & iframe {
-    width: 100%;
-    height: 90vh;
-  }
-
-  @media screen and (max-width: 1024px) {
-    iframe {
-      height: 45vh;
-    }
-  }
 `;
 
 const MovieDetail = styled.div`
@@ -98,6 +83,7 @@ export default function MoviePlayer() {
   const { tvSeries } = useContext(AllTVContext);
   const { myList, setMyList } = useContext(MyListContext);
   const { added, setAdded } = useContext(AddedToListContext);
+  const { currentDate, setCurrentDate } = useContext(CurrentDateContext);
   const { movieId } = useParams();
 
   const viewingTopMovie = data.find(data => data.id === parseInt(movieId));
@@ -107,8 +93,6 @@ export default function MoviePlayer() {
   const viewingList = myList.find(series => series.id === parseInt(movieId));
 
   const viewingContent = viewingList || viewingTopMovie || viewingMovie || viewingTv || viewingSeries;
-
-  const [currentDate, setCurrentDate] = useState(new Date());
 
   useEffect(() => {
     setCurrentDate(new Date());

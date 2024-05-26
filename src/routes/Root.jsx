@@ -14,6 +14,7 @@ export const TvPageContext = createContext();
 export const AddedToListContext = createContext();
 export const LoadingContext = createContext();
 export const ErrorContext = createContext();
+export const CurrentDateContext = createContext();
 
 export default function Root() {
   const [movies, setMovies] = useState([]);
@@ -26,6 +27,7 @@ export default function Root() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [added, setAdded] = useState(false);
+  const [currentDate, setCurrentDate] = useState(new Date());
 
   const options = {
     method: "GET",
@@ -35,6 +37,10 @@ export default function Root() {
         "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmOTkwMGIwZmVhZjZjZjVkMjk0MDc1YjAxNDRkMmZiYSIsInN1YiI6IjY2MTA4NDQ1NWIzNzBkMDE3MDYzMzFjNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.r2V8Oru9xaAu4JLQPZw_nqv_lVULwa-ZPfq8ruQHwvg",
     },
   };
+
+  useEffect(() => {
+    setCurrentDate(new Date());
+  }, []);
 
   useEffect(() => {
     const fetchTopMovies = async () => {
@@ -160,9 +166,11 @@ export default function Root() {
                     <AddedToListContext.Provider value={{ added, setAdded }}>
                       <ErrorContext.Provider value={{ setError }}>
                         <LoadingContext.Provider value={{ setLoading }}>
-                          <Navigation />
-                          <Outlet />
-                          <Footer />
+                          <CurrentDateContext.Provider value={{ currentDate, setCurrentDate }}>
+                            <Navigation />
+                            <Outlet />
+                            <Footer />
+                          </CurrentDateContext.Provider>
                         </LoadingContext.Provider>
                       </ErrorContext.Provider>
                     </AddedToListContext.Provider>
