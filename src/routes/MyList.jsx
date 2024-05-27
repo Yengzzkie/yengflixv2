@@ -4,7 +4,7 @@ import { MyListContext } from "../utils/context";
 import { RoundButton } from "../components/CarouselComponents";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
+// import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import ImageCard from "../components/ImageCard";
 import Grid from "../components/Grid";
@@ -38,6 +38,13 @@ const MyListItems = styled.li`
   }
 `;
 
+const DeleteButton = styled(RoundButton)`
+  position: absolute;
+  top: 3%;
+  right: 3%;
+  background: #141414;
+`
+
 export default function MyList() {
   const { myList, setMyList } = useContext(MyListContext);
 
@@ -50,19 +57,21 @@ export default function MyList() {
       <Grid>
         {myList.map((list) => (
           <MyListItems key={list.id}>
+            <Link to={`/details/${list.id}`}>
             <ImageCard
               className="mylist-image"
               src={`https://image.tmdb.org/t/p/w500/${list.poster_path}`}
               alt={list.name || list.title}
             />
-            <Link to={`/details/${list.id}`}>
+            </Link>
+            {/* <Link to={`/details/${list.id}`}>
               <RoundButton>
                 <FontAwesomeIcon icon={faPlay} />
               </RoundButton>
-            </Link>
-            <RoundButton onClick={() => handleRemoveFromList(list.id)}>
+            </Link> */}
+            <DeleteButton onClick={() => handleRemoveFromList(list.id)}>
               <FontAwesomeIcon icon={faTrash} />
-            </RoundButton>
+            </DeleteButton>
           </MyListItems>
         ))}
       </Grid>

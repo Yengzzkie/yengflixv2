@@ -4,9 +4,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { useState, useContext } from "react";
 import { SearchInputContext, SearchResultContext } from "../utils/context";
+import Grid from "../components/Grid";
 import Nav from "./Nav";
 import LinkList from "./LinkList";
 import styled from "styled-components";
+import ImageCard from "./ImageCard";
 
 const InputBar = styled.input`
   background: gray;
@@ -17,8 +19,8 @@ const InputBar = styled.input`
   margin: 2rem;
 `
 
-const ResultImage = styled.img`
-  width: 200px;
+const ResultImage = styled(ImageCard)`
+  width: 150px;
   margin-right: .5rem;
 
   @media screen and (max-width: 1024px) {
@@ -84,7 +86,6 @@ export default function Navigation() {
                       </Link>
                     </List>
                   ))}
-                  <hr />
                 </ul>
               )}
             </div>
@@ -123,17 +124,16 @@ export default function Navigation() {
         
         {!isMobile ? (
           searchInput && (
-            <ul className="search-results">
+            <Grid>
               {searchResults.map((result) => (
                 <List key={result.id}>
-                  <ResultImage src={`https://image.tmdb.org/t/p/original/${result.poster_path}`} alt={result.title || result.name}  />
                   <Link to={`/details/${result.id}`} onClick={handleLinkClick}>
-                    <h2>{result.title || result.name}</h2>
+                    <ResultImage src={`https://image.tmdb.org/t/p/original/${result.poster_path}`} alt={result.title || result.name}  />
                   </Link>
                 </List>
               ))}
               <hr />
-            </ul>
+            </Grid>
           )
         ) : null}
       </div>
