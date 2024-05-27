@@ -10,8 +10,9 @@ const DescriptionPopup = styled.div`
     color: white;
     font-size: .9rem;
     width: 330px;
+    min-width: 25vw;
     height: 380px;
-    z-index: 2;
+    z-index: 999;
     overflow: auto;
     animation: popUp .3s linear forwards;
 

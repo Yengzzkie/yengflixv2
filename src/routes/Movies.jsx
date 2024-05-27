@@ -25,6 +25,7 @@ const MovieList = styled.li`
         left: -30%;
         transform: translate(-50%, -50%);
         width: 20vw;
+        min-width: 300px;
         height: 50vh;
         z-index: 999;
         }
@@ -83,57 +84,58 @@ export default function Movies() {
   threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
 
   return (
-    <Grid>
-      {movies &&
-        movies.map((movie) => {
-          const releaseDate = new Date(movie.release_date);
-          const isNew = releaseDate >= threeMonthsAgo && releaseDate <= currentDate;
-
-          return (
-            <MovieList key={movie.id}>
-              {isMobile ? (
-                <Link to={`/details/${movie.id}`}>
+    <main>
+      <Grid>
+        {movies &&
+          movies.map((movie) => {
+            const releaseDate = new Date(movie.release_date);
+            const isNew = releaseDate >= threeMonthsAgo && releaseDate <= currentDate;
+            return (
+              <MovieList key={movie.id}>
+                {isMobile ? (
+                  <Link to={`/details/${movie.id}`}>
+                    <ImageCard
+                      src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                      alt={movie.title}
+                    />
+                  </Link>
+                ) : (
                   <ImageCard
                     src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
                     alt={movie.title}
                   />
-                </Link>
-              ) : (
-                <ImageCard
-                  src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-                  alt={movie.title}
-                />
-              )}
-              {!isMobile && (
-                <DescriptionPopup className="description">
-                  <img
-                    className="backdrop-image"
-                    src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
-                    alt=""
-                  />
-                  <Link to={`/details/${movie.id}`}>
-                    <RoundButton>
-                      <FontAwesomeIcon icon={faPlay} />
+                )}
+                {!isMobile && (
+                  <DescriptionPopup className="description">
+                    <img
+                      className="backdrop-image"
+                      src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
+                      alt=""
+                    />
+                    <Link to={`/details/${movie.id}`}>
+                      <RoundButton>
+                        <FontAwesomeIcon icon={faPlay} />
+                      </RoundButton>
+                    </Link>
+                    <RoundButton onClick={() => handleClick(movie)}>
+                      {added ? (
+                        <FontAwesomeIcon icon={faCheck} />
+                      ) : (
+                        <FontAwesomeIcon icon={faPlus} />
+                      )}
                     </RoundButton>
-                  </Link>
-                  <RoundButton onClick={() => handleClick(movie)}>
-                    {added ? (
-                      <FontAwesomeIcon icon={faCheck} />
-                    ) : (
-                      <FontAwesomeIcon icon={faPlus} />
-                    )}
-                  </RoundButton>
-                  <VideoType>{movie.type}</VideoType>
-                  <Title>{movie.title}{isNew && <NewBadge>NEW</NewBadge>}</Title>
-                  <p className="release-date">{movie.release_date}</p>
-                  <p>{movie.overview}</p>
-                </DescriptionPopup>
-              )}
-            </MovieList>
-          );
-        })}
-      <PrevButton onClick={decrementPage}><FontAwesomeIcon icon={faChevronLeft}></FontAwesomeIcon></PrevButton>
-      <NextButton onClick={incrementPage}><FontAwesomeIcon icon={faChevronRight}></FontAwesomeIcon></NextButton>
-    </Grid>
+                    <VideoType>{movie.type}</VideoType>
+                    <Title>{movie.title}{isNew && <NewBadge>NEW</NewBadge>}</Title>
+                    <p className="release-date">{movie.release_date}</p>
+                    <p>{movie.overview}</p>
+                  </DescriptionPopup>
+                )}
+              </MovieList>
+            );
+          })}
+        <PrevButton onClick={decrementPage}><FontAwesomeIcon icon={faChevronLeft}></FontAwesomeIcon></PrevButton>
+        <NextButton onClick={incrementPage}><FontAwesomeIcon icon={faChevronRight}></FontAwesomeIcon></NextButton>
+      </Grid>
+    </main>
   );
 }

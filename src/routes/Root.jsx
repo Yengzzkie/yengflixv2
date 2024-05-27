@@ -6,7 +6,7 @@ import useLocalStorage from "../utils/useLocalStorage";
 import { 
   MovieDataContext, AllMoviesContext, TvDataContext, AllTVContext, 
   MyListContext, MoviePageContext, TvPageContext, AddedToListContext, 
-  LoadingContext, ErrorContext, CurrentDateContext 
+  LoadingContext, ErrorContext, CurrentDateContext, SearchResultContext, SearchInputContext 
 } from "../utils/context";
 
 export default function Root() {
@@ -21,6 +21,8 @@ export default function Root() {
   const [error, setError] = useState(null);
   const [added, setAdded] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
 
   const options = {
     method: "GET",
@@ -51,7 +53,6 @@ export default function Root() {
           ...movies,
           type: "movie",
         }));
-        console.log(newMovieArray);
         setData(newMovieArray);
       } catch (error) {
         setError(error.message);
@@ -76,7 +77,6 @@ export default function Root() {
         const result = await response.json();
         const newTVArray = result.results.map((tv) => ({ ...tv, type: "tv" }));
         setTopTV(newTVArray);
-        console.log(newTVArray);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -104,7 +104,6 @@ export default function Root() {
           type: "movie",
         }));
         setMovies(newMovieArray);
-        console.log(newMovieArray);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -132,7 +131,6 @@ export default function Root() {
           type: "tv",
         }));
         setTvSeries(newMovieArray);
-        console.log(newMovieArray);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -142,6 +140,32 @@ export default function Root() {
 
     fetchAllTV();
   }, [tvPage]);
+
+  useEffect(() => {
+    const fetchSearchResults = async () => {
+      if (searchInput.trim() === "") {
+        setSearchResults(searchResults);
+        return;
+      }
+      try {
+        const response = await fetch(`https://api.themoviedb.org/3/search/multi?query=${searchInput}`, options);
+        if (!response.ok) {
+          throw new Error("HTTP request unsuccessful");
+        }
+        const data = await response.json();
+        console.log(data.results);
+        setSearchResults(data.results);
+      } catch (error) {
+        console.error("Error fetching search results:", error);
+      }
+    };
+
+    const debounceFetch = setTimeout(() => {
+      fetchSearchResults();
+    }, 900); // debounce delay
+
+    return () => clearTimeout(debounceFetch);
+  }, [searchInput]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -160,9 +184,13 @@ export default function Root() {
                       <ErrorContext.Provider value={{ setError }}>
                         <LoadingContext.Provider value={{ setLoading }}>
                           <CurrentDateContext.Provider value={{ currentDate, setCurrentDate }}>
-                            <Navigation />
-                            <Outlet />
-                            <Footer />
+                            <SearchInputContext.Provider value={{ searchInput, setSearchInput }}>
+                              <SearchResultContext.Provider value={{ searchResults, setSearchResults }}>
+                                <Navigation />
+                                <Outlet />
+                                <Footer />
+                              </SearchResultContext.Provider>
+                            </SearchInputContext.Provider>
                           </CurrentDateContext.Provider>
                         </LoadingContext.Provider>
                       </ErrorContext.Provider>

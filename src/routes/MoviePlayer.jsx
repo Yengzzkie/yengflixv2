@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { AllMoviesContext, MovieDataContext, TvDataContext, MyListContext, AllTVContext, AddedToListContext, CurrentDateContext } from "../utils/context";
+import { AllMoviesContext, MovieDataContext, TvDataContext, MyListContext, AllTVContext, AddedToListContext, CurrentDateContext, SearchResultContext } from "../utils/context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { RoundButton } from "../components/CarouselComponents";
@@ -83,6 +83,7 @@ export default function MoviePlayer() {
   const { myList, setMyList } = useContext(MyListContext);
   const { added, setAdded } = useContext(AddedToListContext);
   const { currentDate, setCurrentDate } = useContext(CurrentDateContext);
+  const { searchResults } = useContext(SearchResultContext);
   const { movieId } = useParams();
 
   const viewingTopMovie = data.find(data => data.id === parseInt(movieId));
@@ -90,18 +91,19 @@ export default function MoviePlayer() {
   const viewingTv = topTV.find(tv => tv.id === parseInt(movieId));
   const viewingSeries = tvSeries.find(series => series.id === parseInt(movieId));
   const viewingList = myList.find(series => series.id === parseInt(movieId));
+  const viewingSearchResult = searchResults.find(result => result.id === parseInt(movieId));
 
-  const viewingContent = viewingList || viewingTopMovie || viewingMovie || viewingTv || viewingSeries;
-
+  const viewingContent = viewingSearchResult || viewingList || viewingTopMovie || viewingMovie || viewingTv || viewingSeries;
+  console.log(searchResults)
   useEffect(() => {
     setCurrentDate(new Date());
   }, []);
 
   if (!viewingContent) {
-    return <p>Content not found</p>;
+    return <h1>Content not found</h1>;
   }
 
-  const isMovie = viewingContent.type === "movie";
+  const isMovie = viewingContent.media_type === "movie";
 
   const iframeSrc = isMovie
     ? `https://vidsrc.xyz/embed/movie/${viewingContent.id}`
