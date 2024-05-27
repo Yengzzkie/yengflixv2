@@ -146,7 +146,7 @@ export default function MoviePlayer() {
         </div>
 
         <div className="details-description-wrapper">
-          <Title>{viewingContent.title || viewingContent.name} <VideoType>{viewingContent.type}</VideoType></Title>
+          <Title>{viewingContent.title || viewingContent.name} <VideoType>{viewingContent.media_type}</VideoType></Title>
           {comingSoon ? <p className="coming-soon">{comingSoon}</p> : null}
           <p>
             <strong>Released:</strong> {viewingContent.release_date || viewingContent.first_air_date}
