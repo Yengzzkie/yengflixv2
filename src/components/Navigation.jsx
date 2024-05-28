@@ -35,7 +35,8 @@ const List = styled.li`
   
 
   @media screen and (max-width: 1024px) {
-    font-size: .8rem;
+    font-size: 1.2rem;
+    margin: 1rem;
   }
 `
 
@@ -79,12 +80,12 @@ export default function Navigation() {
               {searchInput && (
                 <ul>
                   {searchResults.map((result) => (
-                    <List key={result.id}>
-                      <ResultImage src={`https://image.tmdb.org/t/p/original/${result.poster_path}`} alt={result.title || result.name}  />
-                      <Link to={`/details/${result.id}`} onClick={handleLinkClick}>
+                    <Link key={result.id} to={`/details/${result.id}`} onClick={handleLinkClick}>
+                      <List>
+                        <ResultImage src={`https://image.tmdb.org/t/p/original/${result.poster_path}`} alt={result.title || result.name}/>
                         {result.title || result.name}
-                      </Link>
-                    </List>
+                      </List>
+                    </Link>
                   ))}
                 </ul>
               )}
