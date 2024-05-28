@@ -103,7 +103,7 @@ export default function MoviePlayer() {
     return <h1>Content not found</h1>;
   }
 
-  const isMovie = viewingContent.media_type === "movie";
+  const isMovie = viewingContent.type || viewingContent.media_type === "movie";
 
   const iframeSrc = isMovie
     ? `https://vidsrc.xyz/embed/movie/${viewingContent.id}`
