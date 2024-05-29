@@ -13,3 +13,4 @@ export const ErrorContext = createContext();
 export const CurrentDateContext = createContext();
 export const SearchResultContext = createContext();
 export const SearchInputContext = createContext();
+export const RecentlyViewedContext = createContext();

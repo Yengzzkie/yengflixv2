@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { AllMoviesContext, MovieDataContext, TvDataContext, MyListContext, AllTVContext, AddedToListContext, CurrentDateContext, SearchResultContext } from "../utils/context";
+import { AllMoviesContext, MovieDataContext, TvDataContext, MyListContext, AllTVContext, AddedToListContext, CurrentDateContext, SearchResultContext, RecentlyViewedContext } from "../utils/context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { RoundButton } from "../components/CarouselComponents";
@@ -84,20 +84,30 @@ export default function MoviePlayer() {
   const { added, setAdded } = useContext(AddedToListContext);
   const { currentDate, setCurrentDate } = useContext(CurrentDateContext);
   const { searchResults } = useContext(SearchResultContext);
+  const { setRecentlyViewed } = useContext(RecentlyViewedContext);
   const { movieId } = useParams();
 
-  const viewingTopMovie = data.find(data => data.id === parseInt(movieId));
-  const viewingMovie = movies.find(movie => movie.id === parseInt(movieId));
-  const viewingTv = topTV.find(tv => tv.id === parseInt(movieId));
-  const viewingSeries = tvSeries.find(series => series.id === parseInt(movieId));
-  const viewingList = myList.find(series => series.id === parseInt(movieId));
-  const viewingSearchResult = searchResults.find(result => result.id === parseInt(movieId));
+  const viewingTopMovie = data?.find(data => data.id === parseInt(movieId));
+  const viewingMovie = movies?.find(movie => movie.id === parseInt(movieId));
+  const viewingTv = topTV?.find(tv => tv.id === parseInt(movieId));
+  const viewingSeries = tvSeries?.find(series => series.id === parseInt(movieId));
+  const viewingList = myList?.find(series => series.id === parseInt(movieId));
+  const viewingSearchResult = searchResults?.find(result => result.id === parseInt(movieId));
 
   const viewingContent = viewingSearchResult || viewingList || viewingTopMovie || viewingMovie || viewingTv || viewingSeries;
-  console.log(searchResults)
+
   useEffect(() => {
     setCurrentDate(new Date());
-  }, []);
+  }, [setCurrentDate]);
+
+  useEffect(() => {
+    if (viewingContent) {
+      setTimeout(() => {
+        handleAddToRecent(viewingContent);
+      }, 1000);
+    }
+  }, [viewingContent]);
+  
 
   if (!viewingContent) {
     return <h1>Content not found</h1>;
@@ -119,6 +129,18 @@ export default function MoviePlayer() {
     });
   }
 
+  function handleAddToRecent(newMovie) {
+    setRecentlyViewed(prevList => {
+      const updatedList = prevList || [];
+      if (!updatedList.some(movie => movie.id === newMovie.id)) {
+        const newRecentlyViewed = [...updatedList, newMovie];
+        localStorage.setItem("recentlyViewed", JSON.stringify(newRecentlyViewed));
+        return newRecentlyViewed;
+      }
+      return updatedList;
+    });
+  }
+  
   const handleClick = (movie) => {
     handleAddToList(movie);
     setAdded(true);
@@ -126,6 +148,7 @@ export default function MoviePlayer() {
       setAdded(false);
     }, 2000);
   };
+  
 
   const releaseDate = new Date(viewingContent.release_date || viewingContent.first_air_date);
   const comingSoon = releaseDate > currentDate ? "Coming Soon" : null;

@@ -9,8 +9,8 @@ const DescriptionPopup = styled.div`
     background-color: rgba(0, 0, 0, 0.9);
     color: white;
     font-size: .9rem;
-    width: 330px;
-    min-width: 25vw;
+    width: 300px;
+    min-width: 20vw;
     height: 380px;
     z-index: 999;
     overflow: auto;

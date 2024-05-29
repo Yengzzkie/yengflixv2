@@ -4,7 +4,7 @@ import Button from "./Button";
 const MovieCarousel = styled.div`
     position: relative;
     width: 100%;
-    height: 400px;
+    height: 380px;
     padding: 0 2.5rem 0 5rem;
     overflow: hidden;
 

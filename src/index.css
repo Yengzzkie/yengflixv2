@@ -94,7 +94,6 @@ input {
   }
 }
 
-
 .search-results {
   position: fixed;
   top: 60px;
@@ -109,7 +108,18 @@ input {
   /* padding: .5rem 1rem; */
 }
 
+.recently-viewed-item {
+  margin-right: 1rem !important; 
+
+  img {
+    width: 13vw;
+  }
+}
+
 @media screen and (max-width: 1024px) {
+  h2 {
+    margin: 0 1rem;
+  }
 
   input {
     padding: .2rem;
@@ -159,6 +169,14 @@ input {
     width: 100px !important;
   }
 
+  .recently-viewed-item {
+    margin-right: 1rem !important; 
+  
+    img {
+      width: 25vw;
+    }
+  }
+
   .overlay {
     position: fixed;
     top: 5%;
@@ -174,7 +192,6 @@ input {
       display: none;
     }
   }
-
   .visible {
     transform: translateX(0%);
   }

@@ -6,7 +6,7 @@ import useLocalStorage from "../utils/useLocalStorage";
 import { 
   MovieDataContext, AllMoviesContext, TvDataContext, AllTVContext, 
   MyListContext, MoviePageContext, TvPageContext, AddedToListContext, 
-  LoadingContext, ErrorContext, CurrentDateContext, SearchResultContext, SearchInputContext 
+  LoadingContext, ErrorContext, CurrentDateContext, SearchResultContext, SearchInputContext, RecentlyViewedContext 
 } from "../utils/context";
 
 export default function Root() {
@@ -23,6 +23,15 @@ export default function Root() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [searchResults, setSearchResults] = useState([]);
   const [searchInput, setSearchInput] = useState("");
+  const [recentlyViewed, setRecentlyViewed] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem("recentlyViewed")) || [];
+    } catch (e) {
+      console.error("Error parsing recentlyViewed from localStorage", e);
+      return [];
+    }
+  });
+
 
   const options = {
     method: "GET",
@@ -186,9 +195,11 @@ export default function Root() {
                           <CurrentDateContext.Provider value={{ currentDate, setCurrentDate }}>
                             <SearchInputContext.Provider value={{ searchInput, setSearchInput }}>
                               <SearchResultContext.Provider value={{ searchResults, setSearchResults }}>
-                                <Navigation />
-                                <Outlet />
-                                <Footer />
+                                <RecentlyViewedContext.Provider value={{ recentlyViewed, setRecentlyViewed }}>
+                                  <Navigation />
+                                  <Outlet />
+                                  <Footer />
+                                </RecentlyViewedContext.Provider>
                               </SearchResultContext.Provider>
                             </SearchInputContext.Provider>
                           </CurrentDateContext.Provider>
