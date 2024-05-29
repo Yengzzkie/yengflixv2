@@ -11,7 +11,7 @@ const DescriptionPopup = styled.div`
     font-size: .9rem;
     width: 300px;
     min-width: 20vw;
-    height: 380px;
+    height: 350px;
     z-index: 999;
     overflow: auto;
     animation: popUp .3s linear forwards;

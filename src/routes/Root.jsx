@@ -6,7 +6,8 @@ import useLocalStorage from "../utils/useLocalStorage";
 import { 
   MovieDataContext, AllMoviesContext, TvDataContext, AllTVContext, 
   MyListContext, MoviePageContext, TvPageContext, AddedToListContext, 
-  LoadingContext, ErrorContext, CurrentDateContext, SearchResultContext, SearchInputContext, RecentlyViewedContext 
+  LoadingContext, ErrorContext, CurrentDateContext, SearchResultContext, 
+  SearchInputContext, RecentlyViewedContext, ContinueWatchContext 
 } from "../utils/context";
 
 export default function Root() {
@@ -23,15 +24,8 @@ export default function Root() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [searchResults, setSearchResults] = useState([]);
   const [searchInput, setSearchInput] = useState("");
-  const [recentlyViewed, setRecentlyViewed] = useState(() => {
-    try {
-      return JSON.parse(localStorage.getItem("recentlyViewed")) || [];
-    } catch (e) {
-      console.error("Error parsing recentlyViewed from localStorage", e);
-      return [];
-    }
-  });
-
+  const [recentlyViewed, setRecentlyViewed] = useState(() => {return JSON.parse(localStorage.getItem("recentlyViewed")) || []});
+  const [continueWatch, setContinueWatch] = useState(() => {return JSON.parse(localStorage.getItem("continueWatch")) || []});
 
   const options = {
     method: "GET",
@@ -196,9 +190,11 @@ export default function Root() {
                             <SearchInputContext.Provider value={{ searchInput, setSearchInput }}>
                               <SearchResultContext.Provider value={{ searchResults, setSearchResults }}>
                                 <RecentlyViewedContext.Provider value={{ recentlyViewed, setRecentlyViewed }}>
-                                  <Navigation />
-                                  <Outlet />
-                                  <Footer />
+                                  <ContinueWatchContext.Provider value={{ continueWatch, setContinueWatch }}>
+                                    <Navigation />
+                                    <Outlet />
+                                    <Footer />
+                                  </ContinueWatchContext.Provider>
                                 </RecentlyViewedContext.Provider>
                               </SearchResultContext.Provider>
                             </SearchInputContext.Provider>

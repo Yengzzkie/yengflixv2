@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useMediaQuery } from 'react-responsive';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPlay, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { TvDataContext, MovieDataContext, MyListContext, AddedToListContext, CurrentDateContext, RecentlyViewedContext } from "../utils/context";
+import { TvDataContext, MovieDataContext, MyListContext, AddedToListContext, CurrentDateContext, RecentlyViewedContext, ContinueWatchContext } from "../utils/context";
 import { MovieCarousel, CarouselContainer, MovieItem, ScrollButton, RoundButton } from "../components/CarouselComponents";
 import styled from "styled-components";
 import NewBadge from "../components/NewBadge";
@@ -27,8 +27,11 @@ export default function Home() {
   const { added, setAdded } = useContext(AddedToListContext);
   const { currentDate } = useContext(CurrentDateContext);
   const { recentlyViewed } = useContext(RecentlyViewedContext);
+  const { continueWatch } = useContext(ContinueWatchContext);
   const movieCarouselRef = useRef(null);
   const tvCarouselRef = useRef(null);
+  const recentCarouselRef = useRef(null);
+  const continueWatchCarouselRef = useRef(null);
 
   const isMobile = useMediaQuery({ query: '(max-width: 1024px)' });
 
@@ -161,8 +164,8 @@ export default function Home() {
       {/* RECENTLY VIEWED SECTION */}
       <h2>Recently Viewed</h2>
       <MovieCarousel>
-        <ScrollLeftButton onClick={() => scrollLeft(movieCarouselRef)}>‹</ScrollLeftButton>
-        <CarouselContainer ref={movieCarouselRef}>
+        <ScrollLeftButton onClick={() => scrollLeft(recentCarouselRef)}>‹</ScrollLeftButton>
+        <CarouselContainer ref={recentCarouselRef}>
           {recentlyViewed && recentlyViewed.slice(0, 10).map((movie) => {
             
             return (
@@ -186,7 +189,37 @@ export default function Home() {
             );
           })}
         </CarouselContainer>
-        <ScrollRightButton onClick={() => scrollRight(movieCarouselRef)}>›</ScrollRightButton>
+        <ScrollRightButton onClick={() => scrollRight(recentCarouselRef)}>›</ScrollRightButton>
+      </MovieCarousel>
+
+      <h2>Continue Watching</h2>
+      <MovieCarousel>
+        <ScrollLeftButton onClick={() => scrollLeft(continueWatchCarouselRef)}>‹</ScrollLeftButton>
+        <CarouselContainer ref={continueWatchCarouselRef}>
+          {continueWatch && continueWatch.slice(0, 10).map((movie) => {
+            
+            return (
+              <Link key={movie.id} to={`/details/${movie.id}`}>
+              <li className="recently-viewed-item">
+                {isMobile ? (
+                  <Link to={`/details/${movie.id}`}>
+                    <ImageCard
+                      src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                      alt={movie.title}
+                    />
+                  </Link>
+                ) : (
+                  <ImageCard
+                    src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                    alt={movie.title}
+                  />
+                )}          
+              </li>
+              </Link>
+            );
+          })}
+        </CarouselContainer>
+        <ScrollRightButton onClick={() => scrollRight(continueWatchCarouselRef)}>›</ScrollRightButton>
       </MovieCarousel>
     </main>
   );

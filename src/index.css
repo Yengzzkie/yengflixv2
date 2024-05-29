@@ -73,12 +73,13 @@ main {
   color: #242424;
   font-size: 237px;
   letter-spacing: -37px;
-  text-shadow: -1px -1px 5px #ededed, 1px -1px 5px #ededed, -1px 1px 5px #ededed,
-    1px 1px 5px #ededed;
-  z-index: -1;
+  text-shadow: -1px -1px 1px #ededed, 1px -1px 1px #ededed, -1px 1px 1px #ededed,
+    1px 1px 1px #ededed;
+  filter: drop-shadow(-7px -8px 3px #393535);
 }
 
 .my-list {
+  min-height: 100vh;
   padding: 1rem;
 }
 
@@ -165,6 +166,7 @@ input {
   }
 
   .movie-image {
+    top: -10px;
     left: 40%;
     width: 100px !important;
   }

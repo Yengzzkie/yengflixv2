@@ -4,12 +4,12 @@ import Button from "./Button";
 const MovieCarousel = styled.div`
     position: relative;
     width: 100%;
-    height: 380px;
+    height: 350px;
     padding: 0 2.5rem 0 5rem;
     overflow: hidden;
 
     @media screen and (max-width: 1024px) {
-      height: 220px;
+      height: 160px;
       padding: .5rem;
     }
 `;
@@ -47,7 +47,7 @@ const MovieItem = styled.li`
     }
 
     @media screen and (max-width: 1024px) {
-      width: 145px;
+      width: 140px;
       margin-right: 20px;
       
       &:hover .description {

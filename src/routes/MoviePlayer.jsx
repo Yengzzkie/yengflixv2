@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { AllMoviesContext, MovieDataContext, TvDataContext, MyListContext, AllTVContext, AddedToListContext, CurrentDateContext, SearchResultContext, RecentlyViewedContext } from "../utils/context";
+import { AllMoviesContext, MovieDataContext, TvDataContext, MyListContext, AllTVContext, AddedToListContext, CurrentDateContext, SearchResultContext, RecentlyViewedContext, ContinueWatchContext } from "../utils/context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { RoundButton } from "../components/CarouselComponents";
@@ -85,6 +85,7 @@ export default function MoviePlayer() {
   const { currentDate, setCurrentDate } = useContext(CurrentDateContext);
   const { searchResults } = useContext(SearchResultContext);
   const { setRecentlyViewed } = useContext(RecentlyViewedContext);
+  const { setContinueWatch } = useContext(ContinueWatchContext);
   const { movieId } = useParams();
 
   const viewingTopMovie = data?.find(data => data.id === parseInt(movieId));
@@ -102,12 +103,20 @@ export default function MoviePlayer() {
 
   useEffect(() => {
     if (viewingContent) {
-      setTimeout(() => {
+      const recentTimeout = setTimeout(() => {
         handleAddToRecent(viewingContent);
-      }, 1000);
+      }, 3000);
+
+      const continueWatchTimeout = setTimeout(() => {
+        handleAddToContinueWatching(viewingContent);
+      }, 180000);
+
+      return () => {
+        clearTimeout(recentTimeout);
+        clearTimeout(continueWatchTimeout);
+      };
     }
   }, [viewingContent]);
-  
 
   if (!viewingContent) {
     return <h1>Content not found</h1>;
@@ -133,13 +142,32 @@ export default function MoviePlayer() {
     setRecentlyViewed(prevList => {
       const updatedList = prevList || [];
       if (!updatedList.some(movie => movie.id === newMovie.id)) {
-        const newRecentlyViewed = [...updatedList, newMovie];
+        if (updatedList.length >= 15) {
+          updatedList.pop();
+        }
+        const newRecentlyViewed = [newMovie, ...updatedList];
         localStorage.setItem("recentlyViewed", JSON.stringify(newRecentlyViewed));
         return newRecentlyViewed;
       }
       return updatedList;
     });
   }
+
+  function handleAddToContinueWatching(newMovie) {
+    setContinueWatch(prevList => {
+      const updatedList = prevList || [];
+      if (!updatedList.some(movie => movie.id === newMovie.id)) {
+        if (updatedList.length >= 15) {
+          updatedList.pop();
+        }
+        const newContinueWatch = [newMovie, ...updatedList];
+        localStorage.setItem("continueWatch", JSON.stringify(newContinueWatch));
+        return newContinueWatch;
+      }
+      return updatedList;
+    });
+  }
+  
   
   const handleClick = (movie) => {
     handleAddToList(movie);
@@ -149,13 +177,12 @@ export default function MoviePlayer() {
     }, 2000);
   };
   
-
   const releaseDate = new Date(viewingContent.release_date || viewingContent.first_air_date);
   const comingSoon = releaseDate > currentDate ? "Coming Soon" : null;
 
   return (
     <PlayerWrapper>
-      <Player>
+      <Player onClick={() => handleAddToContinueWatching(viewingContent)}>
         <iframe src={iframeSrc} allowFullScreen={true}></iframe>
       </Player>
 

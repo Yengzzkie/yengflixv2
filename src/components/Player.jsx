@@ -3,6 +3,7 @@ import styled from "styled-components";
 const Player = styled.div`
   width: auto;
   height: auto;
+  z-index: 999;
 
   & iframe {
     width: 100%;
