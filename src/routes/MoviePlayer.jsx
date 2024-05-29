@@ -10,7 +10,7 @@ import Player from "../components/Player";
 import styled from "styled-components";
 
 const PlayerWrapper = styled.div`
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
 `;
 
