@@ -181,7 +181,7 @@ input {
 
   .overlay {
     position: fixed;
-    top: 5%;
+    top: 65px;
     left: 0; 
     backdrop-filter: blur(5px);
     width: 100vw;

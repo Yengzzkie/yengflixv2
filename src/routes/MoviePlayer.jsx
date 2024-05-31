@@ -7,6 +7,7 @@ import { RoundButton } from "../components/CarouselComponents";
 import VideoType from "../components/VideoType";
 import Title from "../components/Title";
 import Player from "../components/Player";
+import NewBadge from "../components/NewBadge";
 import styled from "styled-components";
 
 const PlayerWrapper = styled.div`
@@ -179,6 +180,10 @@ export default function MoviePlayer() {
   
   const releaseDate = new Date(viewingContent.release_date || viewingContent.first_air_date);
   const comingSoon = releaseDate > currentDate ? "Coming Soon" : null;
+  
+  const threeMonthsAgo = new Date(currentDate);
+  threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+  const isNew = releaseDate >= threeMonthsAgo && releaseDate <= currentDate;
 
   return (
     <PlayerWrapper>
@@ -196,7 +201,7 @@ export default function MoviePlayer() {
         </div>
 
         <div className="details-description-wrapper">
-          <Title>{viewingContent.title || viewingContent.name} <VideoType>{viewingContent.media_type}</VideoType></Title>
+          <Title>{viewingContent.title || viewingContent.name} {isNew && <NewBadge>NEW</NewBadge>} <VideoType>{viewingContent.media_type}</VideoType></Title>
           {comingSoon ? <p className="coming-soon">{comingSoon}</p> : null}
           <p>
             <strong>Released:</strong> {viewingContent.release_date || viewingContent.first_air_date}
