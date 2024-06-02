@@ -11,8 +11,21 @@ import NewBadge from "../components/NewBadge";
 import styled from "styled-components";
 
 const PlayerWrapper = styled.div`
+  position: relative;
   min-height: 100vh;
   width: 100vw;
+  animation: scaleUp .3s;
+
+  @keyframes scaleUp {
+    from {
+      opacity: 0;
+      transform: scale(0);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 `;
 
 const MovieDetail = styled.div`
@@ -106,11 +119,11 @@ export default function MoviePlayer() {
     if (viewingContent) {
       const recentTimeout = setTimeout(() => {
         handleAddToRecent(viewingContent);
-      }, 3000);
+      }, 1000);
 
       const continueWatchTimeout = setTimeout(() => {
         handleAddToContinueWatching(viewingContent);
-      }, 180000);
+      }, 120000);
 
       return () => {
         clearTimeout(recentTimeout);
@@ -141,30 +154,31 @@ export default function MoviePlayer() {
 
   function handleAddToRecent(newMovie) {
     setRecentlyViewed(prevList => {
-      const updatedList = prevList || [];
-      if (!updatedList.some(movie => movie.id === newMovie.id)) {
-        if (updatedList.length >= 15) {
-          updatedList.pop();
-        }
-        const newRecentlyViewed = [newMovie, ...updatedList];
-        localStorage.setItem("recentlyViewed", JSON.stringify(newRecentlyViewed));
-        return newRecentlyViewed;
+      let updatedList = prevList || [];
+  
+      updatedList = updatedList.filter(movie => movie.id !== newMovie.id);
+      updatedList.unshift(newMovie);
+
+      if (updatedList.length > 15) {
+        updatedList.pop();
       }
+      localStorage.setItem("recentlyViewed", JSON.stringify(updatedList));
       return updatedList;
     });
   }
+  
 
   function handleAddToContinueWatching(newMovie) {
     setContinueWatch(prevList => {
-      const updatedList = prevList || [];
-      if (!updatedList.some(movie => movie.id === newMovie.id)) {
-        if (updatedList.length >= 15) {
-          updatedList.pop();
-        }
-        const newContinueWatch = [newMovie, ...updatedList];
-        localStorage.setItem("continueWatch", JSON.stringify(newContinueWatch));
-        return newContinueWatch;
+      let updatedList = prevList || [];
+
+      updatedList = updatedList.filter(movie => movie.id !== newMovie.id);
+      updatedList.unshift(newMovie);
+  
+      if (updatedList.length > 15) {
+        updatedList.pop();
       }
+      localStorage.setItem("continueWatch", JSON.stringify(updatedList));
       return updatedList;
     });
   }
@@ -201,7 +215,7 @@ export default function MoviePlayer() {
         </div>
 
         <div className="details-description-wrapper">
-          <Title>{viewingContent.title || viewingContent.name} {isNew && <NewBadge>NEW</NewBadge>} <VideoType>{viewingContent.media_type}</VideoType></Title>
+          <Title>{viewingContent.title || viewingContent.name} {isNew && <NewBadge>NEW</NewBadge>} <VideoType>{viewingContent.type || viewingContent.media_type}</VideoType></Title>
           {comingSoon ? <p className="coming-soon">{comingSoon}</p> : null}
           <p>
             <strong>Released:</strong> {viewingContent.release_date || viewingContent.first_air_date}
