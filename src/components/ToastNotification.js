@@ -15,6 +15,9 @@ const showToast = (message, duration = 3000, type = "info") => {
     gravity: "top", // `top` or `bottom`
     position: "right", // `left`, `center` or `right`
     backgroundColor: colors[type],
+    style: {
+        boxShadow: "-6px 6px 5px #000000"
+    },
   }).showToast();
 };
 
