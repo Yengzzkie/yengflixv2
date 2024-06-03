@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AllMoviesContext, MovieDataContext, TvDataContext, MyListContext, AllTVContext, AddedToListContext, CurrentDateContext, SearchResultContext, RecentlyViewedContext, ContinueWatchContext } from "../utils/context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,6 +9,7 @@ import VideoType from "../components/VideoType";
 import Title from "../components/Title";
 import Player from "../components/Player";
 import NewBadge from "../components/NewBadge";
+import Button from "../components/Button";
 import styled from "styled-components";
 
 const PlayerWrapper = styled.div`
@@ -91,6 +92,9 @@ const MovieDetail = styled.div`
 `;
 
 export default function MoviePlayer() {
+  const server1 = 'https://vidsrc.xyz/embed/movie/';
+  const server2 = 'https://2embed.org/embed/movie/';
+
   const { data } = useContext(MovieDataContext);
   const { movies } = useContext(AllMoviesContext);
   const { topTV } = useContext(TvDataContext);
@@ -101,6 +105,7 @@ export default function MoviePlayer() {
   const { searchResults } = useContext(SearchResultContext);
   const { setRecentlyViewed } = useContext(RecentlyViewedContext);
   const { setContinueWatch } = useContext(ContinueWatchContext);
+  const [server, setServer] = useState(server1);
   const { movieId } = useParams();
 
   const viewingTopMovie = data?.find(data => data.id === parseInt(movieId));
@@ -140,7 +145,7 @@ export default function MoviePlayer() {
   const isMovie = viewingContent.type === "movie" || viewingContent.media_type === "movie";
 
   const iframeSrc = isMovie
-    ? `https://vidsrc.xyz/embed/movie/${viewingContent.id}`
+    ? `${server}${viewingContent.id}`
     : `https://vidsrc.xyz/embed/tv/${viewingContent.id}`;
 
   function handleAddToList(newMovie) {
@@ -186,7 +191,11 @@ export default function MoviePlayer() {
     });
   }
   
-  
+  function handleServerChange() {
+    setServer(server === server1 ? server2 : server1)
+    window.scrollTo(0, 0);
+  }
+
   const handleClick = (movie) => {
     handleAddToList(movie);
     setAdded(true);
@@ -194,7 +203,6 @@ export default function MoviePlayer() {
       setAdded(false);
     }, 2000);
   };
-
 
   const releaseDate = new Date(viewingContent.release_date || viewingContent.first_air_date);
   const comingSoon = releaseDate > currentDate ? "Coming Soon" : null;
@@ -227,6 +235,8 @@ export default function MoviePlayer() {
           <p className="rating"><strong>Rating:</strong> {Math.round(viewingContent.vote_average)} / 10</p>
           <p>{viewingContent.overview}</p>
           <RoundButton onClick={() => handleClick(viewingContent)}>{added ? <FontAwesomeIcon icon={faCheck} /> : <FontAwesomeIcon icon={faPlus} />}</RoundButton>
+          <Button onClick={handleServerChange}>{server === server1 ? "Server 2" : "Server 1"}</Button>
+          <br /><em>If the movie does not work, try changing the server by clicking the button above</em>
         </div>
       </MovieDetail>
     </PlayerWrapper>
