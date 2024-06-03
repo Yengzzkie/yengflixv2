@@ -4,7 +4,7 @@ import { MyListContext } from "../utils/context";
 import { RoundButton } from "../components/CarouselComponents";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-// import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import { notifySuccessRemoved } from "../components/ToastNotification";
 import styled from "styled-components";
 import ImageCard from "../components/ImageCard";
 import Grid from "../components/Grid";
@@ -49,6 +49,7 @@ export default function MyList() {
   const { myList, setMyList } = useContext(MyListContext);
 
   function handleRemoveFromList(movieId) {
+    notifySuccessRemoved()
     setMyList((prevList) => prevList.filter((movie) => movie.id !== movieId));
   }
 
