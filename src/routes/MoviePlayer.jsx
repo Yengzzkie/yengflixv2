@@ -4,6 +4,7 @@ import { AllMoviesContext, MovieDataContext, TvDataContext, MyListContext, AllTV
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { RoundButton } from "../components/CarouselComponents";
+import showToast from "../components/ToastNotification";
 import VideoType from "../components/VideoType";
 import Title from "../components/Title";
 import Player from "../components/Player";
@@ -186,6 +187,7 @@ export default function MoviePlayer() {
   
   const handleClick = (movie) => {
     handleAddToList(movie);
+    showToast("Movie added to list", 3000, "success");
     setAdded(true);
     setTimeout(() => {
       setAdded(false);
