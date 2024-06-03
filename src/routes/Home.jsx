@@ -5,13 +5,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPlay, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { TvDataContext, MovieDataContext, MyListContext, AddedToListContext, CurrentDateContext, RecentlyViewedContext, ContinueWatchContext } from "../utils/context";
 import { MovieCarousel, CarouselContainer, MovieItem, ScrollButton, RoundButton } from "../components/CarouselComponents";
-import showToast from "../components/ToastNotification";
 import styled from "styled-components";
 import NewBadge from "../components/NewBadge";
 import VideoType from "../components/VideoType";
 import Title from "../components/Title";
 import DescriptionPopup from "../components/DescriptionPopup";
 import ImageCard from "../components/ImageCard";
+import { notifyError, notifySuccess } from "../components/ToastNotification";
 
 const ScrollLeftButton = styled(ScrollButton)`
     left: 10px;
@@ -40,10 +40,10 @@ export default function Home() {
     setMyList(prevList => {
       const updatedList = prevList || [];
       if (!updatedList.some(movie => movie.id === newMovie.id)) {
-        showToast("Movie added to list", 3000, "success");
+        notifySuccess();
         return [...updatedList, newMovie];
       }
-      showToast("Movie already in the list")
+      notifyError();
       return updatedList;
     });
   }

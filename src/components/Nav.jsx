@@ -10,7 +10,6 @@ const Nav = styled.nav`
   width: 100vw;
   height: 60px;
   padding: 1rem;
-  z-index: 99999;
 
   @media screen and (max-width: 1024px) {
     backdrop-filter: blur(5px);

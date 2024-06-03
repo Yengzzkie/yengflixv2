@@ -106,7 +106,6 @@ input {
   overflow-y: scroll;
   border-bottom: 1px solid gray;
   transition: all 1s ease;
-  /* padding: .5rem 1rem; */
 }
 
 .recently-viewed-item {
@@ -115,6 +114,10 @@ input {
   img {
     width: 13vw;
   }
+}
+
+.toast {
+  box-shadow: -6px 6px 5px #000000 !important;
 }
 
 @media screen and (max-width: 1024px) {

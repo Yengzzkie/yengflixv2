@@ -4,7 +4,7 @@ import { AllMoviesContext, MovieDataContext, TvDataContext, MyListContext, AllTV
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { RoundButton } from "../components/CarouselComponents";
-import showToast from "../components/ToastNotification";
+import { notifySuccess, notifyError } from "../components/ToastNotification";
 import VideoType from "../components/VideoType";
 import Title from "../components/Title";
 import Player from "../components/Player";
@@ -147,10 +147,10 @@ export default function MoviePlayer() {
     setMyList(prevList => {
       const updatedList = prevList || [];
       if (!updatedList.some(movie => movie.id === newMovie.id)) {
-        showToast("Movie added to list", 3000, "success");
+        notifySuccess();
         return [...updatedList, newMovie];
       }
-      showToast("Movie already in the list")
+      notifyError();
       return updatedList;
     });
   }
@@ -194,7 +194,8 @@ export default function MoviePlayer() {
       setAdded(false);
     }, 2000);
   };
-  
+
+
   const releaseDate = new Date(viewingContent.release_date || viewingContent.first_air_date);
   const comingSoon = releaseDate > currentDate ? "Coming Soon" : null;
   

@@ -9,6 +9,9 @@ import {
   LoadingContext, ErrorContext, CurrentDateContext, SearchResultContext, 
   SearchInputContext, RecentlyViewedContext, ContinueWatchContext 
 } from "../utils/context";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export default function Root() {
   const [movies, setMovies] = useState([]);
@@ -193,6 +196,7 @@ export default function Root() {
                                   <ContinueWatchContext.Provider value={{ continueWatch, setContinueWatch }}>
                                     <Navigation />
                                     <Outlet />
+                                    <ToastContainer />
                                     <Footer />
                                   </ContinueWatchContext.Provider>
                                 </RecentlyViewedContext.Provider>
