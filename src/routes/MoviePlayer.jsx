@@ -147,8 +147,10 @@ export default function MoviePlayer() {
     setMyList(prevList => {
       const updatedList = prevList || [];
       if (!updatedList.some(movie => movie.id === newMovie.id)) {
+        showToast("Movie added to list", 3000, "success");
         return [...updatedList, newMovie];
       }
+      showToast("Movie already in the list")
       return updatedList;
     });
   }
@@ -187,7 +189,6 @@ export default function MoviePlayer() {
   
   const handleClick = (movie) => {
     handleAddToList(movie);
-    showToast("Movie added to list", 3000, "success");
     setAdded(true);
     setTimeout(() => {
       setAdded(false);
