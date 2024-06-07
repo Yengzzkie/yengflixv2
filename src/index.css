@@ -116,6 +116,12 @@ input {
   }
 }
 
+div:where(.swal2-container) div:where(.swal2-popup) {
+  background: #3a3a3a !important;
+  color: #fff !important;
+  box-shadow: -6px 6px 5px #000000;
+}
+
 .toast {
   box-shadow: -6px 6px 5px #000000 !important;
 }

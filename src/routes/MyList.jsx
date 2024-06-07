@@ -4,10 +4,10 @@ import { MyListContext } from "../utils/context";
 import { RoundButton } from "../components/CarouselComponents";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { notifySuccessRemoved } from "../components/ToastNotification";
 import styled from "styled-components";
 import ImageCard from "../components/ImageCard";
 import Grid from "../components/Grid";
+import Swal from "sweetalert2";
 
 const MyListItems = styled.li`
   position: relative;
@@ -48,8 +48,28 @@ const DeleteButton = styled(RoundButton)`
 export default function MyList() {
   const { myList, setMyList } = useContext(MyListContext);
 
+  function confirmDeleteFromList(id, title) {
+    Swal.fire({
+      title: `Delete "${title}"?`,
+      text: "You can always add this back.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: `"${title}" has been deleted.`,
+          icon: "success"
+        });
+        handleRemoveFromList(id)
+      }
+    });
+  }
+
   function handleRemoveFromList(movieId) {
-    notifySuccessRemoved()
     setMyList((prevList) => prevList.filter((movie) => movie.id !== movieId));
   }
 
@@ -65,12 +85,7 @@ export default function MyList() {
               alt={list.name || list.title}
             />
             </Link>
-            {/* <Link to={`/details/${list.id}`}>
-              <RoundButton>
-                <FontAwesomeIcon icon={faPlay} />
-              </RoundButton>
-            </Link> */}
-            <DeleteButton onClick={() => handleRemoveFromList(list.id)}>
+            <DeleteButton onClick={() => confirmDeleteFromList(list.id, list.name || list.title)}>
               <FontAwesomeIcon icon={faTrash} />
             </DeleteButton>
           </MyListItems>

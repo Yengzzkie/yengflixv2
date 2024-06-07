@@ -236,7 +236,7 @@ export default function MoviePlayer() {
           <p>{viewingContent.overview}</p>
           <RoundButton onClick={() => handleClick(viewingContent)}>{added ? <FontAwesomeIcon icon={faCheck} /> : <FontAwesomeIcon icon={faPlus} />}</RoundButton>
           <Button onClick={handleServerChange}>{server === server1 ? "Server 2" : "Server 1"}</Button>
-          <br /><em>If the movie does not work, try changing the server by clicking the button above</em>
+          <br /><em>If the video does not work, try changing the server by clicking the button above</em>
         </div>
       </MovieDetail>
     </PlayerWrapper>
