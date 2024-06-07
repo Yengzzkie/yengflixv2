@@ -17,6 +17,7 @@ const router = createBrowserRouter([
     {path: "/tvshows", element: <TVshows />},
     {path: "/details/:movieId", element: <MoviePlayer />},
     {path: "/mylist", element: <MyList />},
+    {path: "/0a22d39834e0c1baefa7e1f13fa09943.txt"}
   ] },
 ]);
 

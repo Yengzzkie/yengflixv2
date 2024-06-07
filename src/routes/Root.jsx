@@ -167,7 +167,7 @@ export default function Root() {
 
     const debounceFetch = setTimeout(() => {
       fetchSearchResults();
-    }, 900); // debounce delay
+    }, 600); // debounce delay
 
     return () => clearTimeout(debounceFetch);
   }, [searchInput]);

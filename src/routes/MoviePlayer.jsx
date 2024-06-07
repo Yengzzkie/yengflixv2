@@ -214,7 +214,7 @@ export default function MoviePlayer() {
   return (
     <PlayerWrapper>
       <Player onClick={() => handleAddToContinueWatching(viewingContent)}>
-        <iframe src={iframeSrc} allowFullScreen={true}></iframe>
+        <iframe src={iframeSrc} allowFullScreen={true} referrerPolicy="origin"></iframe>
       </Player>
 
       <MovieDetail>
