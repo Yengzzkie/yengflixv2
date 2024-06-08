@@ -9,7 +9,7 @@ const MovieCarousel = styled.div`
     overflow: hidden;
 
     @media screen and (max-width: 1024px) {
-      height: auto;
+      height: 25vh;
       padding: .5rem;
     }
 `;
