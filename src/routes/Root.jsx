@@ -27,8 +27,8 @@ export default function Root() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [searchResults, setSearchResults] = useState([]);
   const [searchInput, setSearchInput] = useState("");
-  const [recentlyViewed, setRecentlyViewed] = useState(() => {return JSON.parse(localStorage.getItem("recentlyViewed")) || []});
-  const [continueWatch, setContinueWatch] = useState(() => {return JSON.parse(localStorage.getItem("continueWatch")) || []});
+  const [recentlyViewed, setRecentlyViewed] = useLocalStorage("recentlyViewed", []);
+  const [continueWatch, setContinueWatch] = useLocalStorage("continueWatch", []);
 
   const options = {
     method: "GET",

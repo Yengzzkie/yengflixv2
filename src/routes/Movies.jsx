@@ -13,6 +13,7 @@ import DescriptionPopup from "../components/DescriptionPopup";
 import NewBadge from "../components/NewBadge";
 import styled from "styled-components";
 import NextPrevButton from "../components/NextPrevButton";
+import { notifyError, notifySuccess } from "../components/ToastNotification";
 
 const MovieList = styled.li`
     position: relative;
@@ -66,8 +67,10 @@ export default function Movies() {
     setMyList((prevList) => {
       const updatedList = prevList || [];
       if (!updatedList.some((movie) => movie.id === newMovie.id)) {
+        notifySuccess();
         return [...updatedList, newMovie];
       }
+      notifyError();
       return updatedList;
     });
   }

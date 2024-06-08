@@ -50,7 +50,7 @@ export default function MyList() {
 
   function confirmDeleteFromList(id, title) {
     Swal.fire({
-      title: `Delete "${title}"?`,
+      title: `Delete "${title} from your list"?`,
       text: "You can always add this back.",
       icon: "warning",
       showCancelButton: true,
