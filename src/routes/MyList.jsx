@@ -63,6 +63,8 @@ export default function MyList() {
           title: "Deleted!",
           text: `"${title}" has been deleted.`,
           icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
         });
         handleRemoveFromList(id);
       }
