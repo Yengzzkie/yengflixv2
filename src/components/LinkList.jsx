@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 const LinkList = styled.ul`
     display: flex;
+    align-items: center;
     list-style: none;
     width: 100%;
     margin-left: 1rem;
@@ -16,7 +17,7 @@ const LinkList = styled.ul`
       width: 50vw;
 
       li {
-        margin-bottom: .5rem;
+        margin-bottom: 1rem;
       }
     }
   `

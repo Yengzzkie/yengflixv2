@@ -29,7 +29,7 @@ const notifyError = () => {
 };
 
 // const notifySuccessRemoved = () => {
-//   toast.success("Movie removed from the list", {
+//   toast.success("Data successfully cleared", {
 //     className: "toast",
 //     position: "top-right",
 //     autoClose: 3000,

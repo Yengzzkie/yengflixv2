@@ -31,7 +31,7 @@ const MyListItems = styled.li`
 
   @media screen and (max-width: 1024px) {
     button {
-      font-size: .7rem;
+      font-size: 0.7rem;
       width: 30px;
       height: 30px;
     }
@@ -43,28 +43,28 @@ const DeleteButton = styled(RoundButton)`
   top: 3%;
   right: 3%;
   background: #141414;
-`
+`;
 
 export default function MyList() {
   const { myList, setMyList } = useContext(MyListContext);
 
   function confirmDeleteFromList(id, title) {
     Swal.fire({
-      title: `Delete "${title} from your list"?`,
+      title: `Delete "${title}" from your list?`,
       text: "You can always add this back.",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
           title: "Deleted!",
           text: `"${title}" has been deleted.`,
-          icon: "success"
+          icon: "success",
         });
-        handleRemoveFromList(id)
+        handleRemoveFromList(id);
       }
     });
   }
@@ -75,22 +75,32 @@ export default function MyList() {
 
   return (
     <div className="my-list">
-      <Grid>
-        {myList.map((list) => (
-          <MyListItems key={list.id}>
-            <Link to={`/details/${list.id}`}>
-            <ImageCard
-              className="mylist-image"
-              src={`https://image.tmdb.org/t/p/w500/${list.poster_path}`}
-              alt={list.name || list.title}
-            />
-            </Link>
-            <DeleteButton onClick={() => confirmDeleteFromList(list.id, list.name || list.title)}>
-              <FontAwesomeIcon icon={faTrash} />
-            </DeleteButton>
-          </MyListItems>
-        ))}
-      </Grid>
+      {myList.length === 0 ? (
+        <div className="list-is-empty">
+          <h1>Your List is Empty</h1>
+        </div>
+      ) : (
+        <Grid>
+          {myList.map((list) => (
+            <MyListItems key={list.id}>
+              <Link to={`/details/${list.id}`}>
+                <ImageCard
+                  className="mylist-image"
+                  src={`https://image.tmdb.org/t/p/w500/${list.poster_path}`}
+                  alt={list.name || list.title}
+                />
+              </Link>
+              <DeleteButton
+                onClick={() =>
+                  confirmDeleteFromList(list.id, list.name || list.title)
+                }
+              >
+                <FontAwesomeIcon icon={faTrash} />
+              </DeleteButton>
+            </MyListItems>
+          ))}
+        </Grid>
+      )}
     </div>
   );
 }

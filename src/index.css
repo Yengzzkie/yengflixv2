@@ -80,6 +80,11 @@ main {
 .my-list {
   min-height: 100vh;
   padding: 1rem;
+  display: flex;
+
+  & .list-is-empty {
+    margin: auto;
+  }
 }
 
 input {
@@ -119,6 +124,7 @@ div:where(.swal2-container) div:where(.swal2-popup) {
   background: #3a3a3a !important;
   color: #fff !important;
   box-shadow: -6px 6px 5px #000000;
+  z-index: 9999999999999999;
 }
 
 .toast {

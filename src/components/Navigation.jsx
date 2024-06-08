@@ -9,6 +9,8 @@ import Nav from "./Nav";
 import LinkList from "./LinkList";
 import styled from "styled-components";
 import ImageCard from "./ImageCard";
+import Button from "./Button";
+import Swal from "sweetalert2";
 
 const InputBar = styled.input`
   background: gray;
@@ -58,6 +60,31 @@ export default function Navigation() {
   const handleSearchInputChange = (event) => {
     setSearchInput(event.target.value);
   };
+
+  const handleClearData = () => {
+    handleMenuToggle();
+    Swal.fire({
+      title: "Delete all data from local storage?",
+      text: "This will clear your \"List\", \"Recently Viewed\" and \"Continue Watching\"",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Data has been deleted.",
+          icon: "success"
+        });
+        localStorage.clear();
+      } else {
+        setMenuOpen(true);
+      }
+      
+    });
+  }
 
   return (
     <>
@@ -112,6 +139,9 @@ export default function Navigation() {
             </li>
             <li>
               <Link to="/mylist" onClick={handleLinkClick}>My List</Link>
+            </li>
+            <li>
+              <Button onClick={handleClearData}>Clear Data</Button>
             </li>
           </LinkList>
           {!isMobile ? (
