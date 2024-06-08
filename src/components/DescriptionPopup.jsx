@@ -3,7 +3,7 @@ import styled from "styled-components";
 const DescriptionPopup = styled.div`
     display: none;
     position: absolute;
-    top: -15%;
+    top: 0;
     left: 0;
     transform: translate(-50%, -50%);
     background-color: rgba(0, 0, 0, 0.9);
@@ -11,7 +11,7 @@ const DescriptionPopup = styled.div`
     font-size: .9rem;
     width: 300px;
     min-width: 20vw;
-    height: 350px;
+    height: 100%;
     z-index: 999;
     overflow: auto;
     animation: popUp .3s linear forwards;

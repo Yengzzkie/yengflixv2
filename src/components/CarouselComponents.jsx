@@ -4,12 +4,12 @@ import Button from "./Button";
 const MovieCarousel = styled.div`
     position: relative;
     width: 100%;
-    height: 350px;
+    height: auto;
     padding: 0 2.5rem 0 5rem;
     overflow: hidden;
 
     @media screen and (max-width: 1024px) {
-      height: 160px;
+      height: auto;
       padding: .5rem;
     }
 `;

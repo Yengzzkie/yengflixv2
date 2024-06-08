@@ -42,7 +42,6 @@ main {
 .movie-image {
   position: absolute;
   left: 65%;
-  top: -35px;
 }
 
 .release-date {
@@ -112,7 +111,7 @@ input {
   margin-right: 1rem !important; 
 
   img {
-    width: 13vw;
+    width: 15vw;
   }
 }
 
