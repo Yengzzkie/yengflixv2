@@ -9,7 +9,7 @@ import MoviePlayer from "./routes/MoviePlayer";
 import MyList from "./routes/MyList";
 import Movies from "./routes/Movies"
 import TVshows from "./routes/TVshows";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 const router = createBrowserRouter([
   { path: "/", element: <Root />, errorElement: <Error />, children: [
