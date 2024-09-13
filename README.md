@@ -1,8 +1,46 @@
-# React + Vite
+# Netflix Clone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A Netflix clone built with ReactJS to replicate the UI and core functionality of Netflix, focusing on displaying movies and shows with a sleek design.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Browse and search for movies/shows
+- Responsive design
+- Fetches data from third-party API for movie details and images
+- Dynamic content rendering based on movie categories
+
+## Demo
+
+[https://yengflix.netlify.app/]
+
+## Screenshots
+
+[Include screenshots of the app]
+
+## Installation
+
+1. Clone the repository
+
+   ```bash
+   git clone https://github.com/yengzkie/yengflixv2.git
+   ```
+2. Navigate to project directory
+  
+  ```bash
+  cd yengflixv2
+  ```
+3. Install dependencies
+
+   ```bash
+   npm install
+   ```
+   
+4. Start the development server
+
+  ```bash
+  npm run dev
+  ```
+
+The app will be available at http://localhost:3000.
+
+
