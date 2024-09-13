@@ -26,9 +26,9 @@ A Netflix clone built with ReactJS to replicate the UI and core functionality of
    ```
 2. Navigate to project directory
   
-  ```bash
-  cd yengflixv2
-  ```
+   ```bash
+   cd yengflixv2
+   ```
 3. Install dependencies
 
    ```bash
@@ -37,9 +37,9 @@ A Netflix clone built with ReactJS to replicate the UI and core functionality of
    
 4. Start the development server
 
-  ```bash
-  npm run dev
-  ```
+   ```bash
+   npm run dev
+   ```
 
 The app will be available at http://localhost:3000.
 
