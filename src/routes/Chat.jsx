@@ -143,7 +143,7 @@ export default function Chat() {
       </div>
 
       {/* Input area */}
-      <div className="flex items-center space-x-2 mt-2 mx-4">
+      <div className="flex items-center space-x-2 my-6 mx-4">
         <input
           className="flex-1 text-gray-600 bg-white border p-2"
           type="text"

@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -10,8 +11,8 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
+  bgcolor: "background.gray",
+  border: "2px solid black",
   boxShadow: 24,
   p: 4,
 };
@@ -22,7 +23,7 @@ export default function BasicModal() {
 
   useEffect(() => {
     handleOpen();
-  })
+  }, [])
 
   return (
     <div>
@@ -34,11 +35,11 @@ export default function BasicModal() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
+          <Typography className="text-gray-100" id="modal-modal-title" variant="h6" component="h2">
+            Hello
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          <Typography className="text-gray-100" id="modal-modal-description" sx={{ mt: 2 }}>
+            Live chat is now available. Check it out <Link to={"/chat"}>here</Link>.
           </Typography>
         </Box>
       </Modal>
