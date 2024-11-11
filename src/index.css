@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -42,6 +46,7 @@ main {
 .movie-image {
   position: absolute;
   left: 65%;
+  top: 0;
 }
 
 .release-date {
