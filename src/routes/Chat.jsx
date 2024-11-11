@@ -131,7 +131,7 @@ export default function Chat() {
       {/* Messages area with scrolling */}
       <div className="flex-1 mb-4 overflow-y-auto no-scrollbar m-4">
         {messages.map((msg) => (
-          <div key={msg.id} className={msg.sender === userName ? "bg-blue-600 ml-auto mb-2 rounded-md p-2 w-1/2" : "bg-gray-700 text-white mb-2 rounded-md p-2 w-1/2"}>
+          <div key={msg.id} className={msg.sender === userName ? "bg-blue-600 ml-auto mb-2 rounded-md p-2 w-1/2 lg:w-2/5" : "bg-gray-700 text-white mb-2 rounded-md p-2 w-1/2 lg:w-2/5"}>
             <p>{msg.text}</p>
             <p className="italic text-[#cecece] text-xs">From: {msg.sender}</p>
             <p className="italic text-[#cecece] text-xs">
