@@ -162,6 +162,11 @@ export default function Navigation() {
               </Link>
             </li>
             <li>
+              <Link to="/chat" onClick={handleLinkClick}>
+                Live Chatroom
+              </Link>
+            </li>
+            <li>
               <Button onClick={handleClearData}>Clear Data</Button>
             </li>
           </LinkList>

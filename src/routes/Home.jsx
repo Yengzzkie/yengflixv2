@@ -12,6 +12,7 @@ import Title from "../components/Title";
 import DescriptionPopup from "../components/DescriptionPopup";
 import ImageCard from "../components/ImageCard";
 import { notifyError, notifySuccess } from "../components/ToastNotification";
+import Modal from "../components/Modal";
 
 const ScrollLeftButton = styled(ScrollButton)`
     left: 10px;
@@ -70,6 +71,7 @@ export default function Home() {
 
   return (
     <main>
+      {/* <Modal /> */}
       {/* MOVIES SECTION */}
       <h2>Top 10 Movies</h2>
       <MovieCarousel>

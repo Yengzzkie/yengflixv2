@@ -9,6 +9,7 @@ import MoviePlayer from "./routes/MoviePlayer";
 import MyList from "./routes/MyList";
 import Movies from "./routes/Movies"
 import TVshows from "./routes/TVshows";
+import Chat from "./routes/Chat";
 import { SpeedInsights } from "@vercel/speed-insights/react"
 
 const router = createBrowserRouter([
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
     {path: "/tvshows", element: <TVshows />},
     {path: "/details/:movieId", element: <MoviePlayer />},
     {path: "/mylist", element: <MyList />},
+    {path: "/chat", element: <Chat />},
   ] },
 ]);
 
