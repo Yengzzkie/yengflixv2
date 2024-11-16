@@ -75,7 +75,7 @@ export default function Home() {
       {/* <Modal /> */}
       <Alerts />
       {/* MOVIES SECTION */}
-      <h2>Top 10 Movies</h2>
+      <h2 className="carousel-header pl-3">Top 10 Movies</h2>
       <MovieCarousel>
         <ScrollLeftButton onClick={() => scrollLeft(movieCarouselRef)}>‹</ScrollLeftButton>
         <CarouselContainer ref={movieCarouselRef}>
@@ -122,7 +122,7 @@ export default function Home() {
       </MovieCarousel>
 
       {/* TV SERIES SECTION */}
-      <h2>Top 10 TV Series</h2>
+      <h2 className="carousel-header">Top 10 TV Series</h2>
       <MovieCarousel>
         <ScrollLeftButton onClick={() => scrollLeft(tvCarouselRef)}>‹</ScrollLeftButton>
         <CarouselContainer ref={tvCarouselRef}>
@@ -169,62 +169,66 @@ export default function Home() {
       </MovieCarousel>
 
       {/* RECENTLY VIEWED SECTION */}
-      <h2>Recently Viewed</h2>
+      <h2 className="carousel-header">Recently Viewed</h2>
       <MovieCarousel>
         <ScrollLeftButton onClick={() => scrollLeft(recentCarouselRef)}>‹</ScrollLeftButton>
         <CarouselContainer ref={recentCarouselRef}>
-          {recentlyViewed && recentlyViewed.slice(0, 10).map((movie) => {
+          {recentlyViewed.length === 0 ? <span className="text-center w-full">No movie recently viewed yet</span> : (
+            recentlyViewed && recentlyViewed.slice(0, 10).map((movie) => {
             
-            return (
-              <Link key={movie.id} to={`/details/${movie.id}`}>
-              <li className="recently-viewed-item">
-                {isMobile ? (
-                  <Link to={`/details/${movie.id}`}>
+              return (
+                <Link key={movie.id} to={`/details/${movie.id}`}>
+                <li className="recently-viewed-item">
+                  {isMobile ? (
+                    <Link to={`/details/${movie.id}`}>
+                      <ImageCard
+                        src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                        alt={movie.title}
+                      />
+                    </Link>
+                  ) : (
                     <ImageCard
                       src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
                       alt={movie.title}
                     />
-                  </Link>
-                ) : (
-                  <ImageCard
-                    src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-                    alt={movie.title}
-                  />
-                )}          
-              </li>
-              </Link>
-            );
-          })}
+                  )}          
+                </li>
+                </Link>
+              );
+            })
+          )}
         </CarouselContainer>
         <ScrollRightButton onClick={() => scrollRight(recentCarouselRef)}>›</ScrollRightButton>
       </MovieCarousel>
 
-      <h2>Continue Watching</h2>
+      <h2 className="carousel-header">Continue Watching</h2>
       <MovieCarousel>
         <ScrollLeftButton onClick={() => scrollLeft(continueWatchCarouselRef)}>‹</ScrollLeftButton>
         <CarouselContainer ref={continueWatchCarouselRef}>
-          {continueWatch && continueWatch.slice(0, 10).map((movie) => {
+          {continueWatch.length === 0 ? (<span className="text-center w-full">No movies watched yet</span>) : (
+            continueWatch && continueWatch.slice(0, 10).map((movie) => {
             
-            return (
-              <Link key={movie.id} to={`/details/${movie.id}`}>
-              <li className="recently-viewed-item">
-                {isMobile ? (
-                  <Link to={`/details/${movie.id}`}>
+              return (
+                <Link key={movie.id} to={`/details/${movie.id}`}>
+                <li className="recently-viewed-item">
+                  {isMobile ? (
+                    <Link to={`/details/${movie.id}`}>
+                      <ImageCard
+                        src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                        alt={movie.title}
+                      />
+                    </Link>
+                  ) : (
                     <ImageCard
                       src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
                       alt={movie.title}
                     />
-                  </Link>
-                ) : (
-                  <ImageCard
-                    src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-                    alt={movie.title}
-                  />
-                )}          
-              </li>
-              </Link>
-            );
-          })}
+                  )}          
+                </li>
+                </Link>
+              );
+            })
+          )}
         </CarouselContainer>
         <ScrollRightButton onClick={() => scrollRight(continueWatchCarouselRef)}>›</ScrollRightButton>
       </MovieCarousel>
