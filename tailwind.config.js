@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+import withMT from "@material-tailwind/react/utils/withMT";
 
-module.exports = {
+export default withMT({
   content: [
     "./index.html",
     "./src/components/**/*.{js,ts,jsx,tsx}",
@@ -11,5 +12,6 @@ module.exports = {
       '-1/2': '-50%',
     },
   },
-  plugins: [],
-}
+  plugins: [
+  ],
+})

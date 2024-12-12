@@ -4,6 +4,7 @@ import { useEffect, useId, useRef, useState, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import useOutsideClick from "../utils/useOutsideClick";
 import { AllMoviesContext } from "../utils/context";
+import RatingStar from "../components/RatingStar";
 
 export default function ExpandableCardDemo() {
   const { movies } = useContext(AllMoviesContext);
@@ -49,7 +50,7 @@ export default function ExpandableCardDemo() {
             <motion.div
               layoutId={`card-${active.title}-${id}`}
               ref={ref}
-              className="relative w-full max-w-[80%] md:max-w-[500px] h-fit md:max-h-[90%] flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden"
+              className="relative w-full max-w-screen md:max-w-[500px] h-screen md:max-h-[90%] flex flex-col bg-[#141414] sm:rounded-3xl overflow-hidden"
             >
               <motion.button
                   key={`button-${active.title}-${id}`}
@@ -90,9 +91,10 @@ export default function ExpandableCardDemo() {
                     >
                       {active.title}
                     </motion.h3>
+                    <RatingStar rating={active.vote_average} votes={active.vote_count} />
                     <motion.p
                       layoutId={`description-${active.description}-${id}`}
-                      className="text-neutral-600 dark:text-neutral-400"
+                      className="text-gray-400 mt-4"
                     >
                       {active.overview}
                     </motion.p>
@@ -101,7 +103,7 @@ export default function ExpandableCardDemo() {
                   <motion.a
                     layoutId={`button-${active.title}-${id}`}
                     href={`/details/${active.id}`}
-                    className="px-4 py-3 text-sm rounded-full font-bold bg-red-500 text-white"
+                    className="px-4 py-3 text-sm rounded-full font-bold bg-red-500 hover:bg-red-400 text-white"
                   >
                     Watch
                   </motion.a>
@@ -145,7 +147,7 @@ export default function ExpandableCardDemo() {
               <div className="">
                 <motion.h3
                   layoutId={`title-${card.title}-${id}`}
-                  className="font-medium text-neutral-800 dark:text-neutral-200 text-center md:text-left"
+                  className="font-medium text-neutral-800 dark:text-neutral-200 text-left lg:text-center md:text-left"
                 >
                   {card.title}
                 </motion.h3>
@@ -153,7 +155,7 @@ export default function ExpandableCardDemo() {
                   layoutId={`description-${card.title}-${id}`}
                   className="text-neutral-600 dark:text-neutral-400 lg:text-center text-left"
                 >
-                  Rating: {Math.ceil(card.vote_average)}
+                <RatingStar rating={card.vote_average} votes={card.vote_count} />
                 </motion.p>
               </div>
             </div>

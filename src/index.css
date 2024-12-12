@@ -184,7 +184,7 @@ div:where(.swal2-container) div:where(.swal2-popup) {
     background-color: #141414;
     width: 100%;
     padding: .5rem;
-    z-index: 999;
+    z-index: 99;
   }
 
   .mobile-header__inner {
